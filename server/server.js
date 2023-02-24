@@ -2,6 +2,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const database = require("./src/utils/database/database");
 const app = express();
 
 const port = process.env.PORT || 5000;
@@ -15,5 +16,6 @@ app.listen(port, (err) => {
     console.error(err);
   } else {
     console.log("Server running at http://localhost:" + port);
+    database.config();
   }
 });
