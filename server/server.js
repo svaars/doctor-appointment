@@ -24,9 +24,6 @@ require("./src/auth/authenticate.js");
 
 // Whitelist our domain
 
-app.use(passport.initialize());
-app.use("/users", userRoute);
-
 //#region CORS
 const whitelist = process.env.WHITELISTED_DOMAINS
   ? process.env.WHITELISTED_DOMAINS.split(",")
@@ -45,6 +42,9 @@ const corsOption = {
 };
 app.use(cors(corsOption));
 // #endregion
+
+app.use(passport.initialize());
+app.use("/users", userRoute);
 
 //#region Server listening Setup
 // Setting up server
