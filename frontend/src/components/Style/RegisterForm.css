@@ -1,0 +1,52 @@
+
+     label {
+        display: block;
+        margin-bottom: 5px;
+        text-align:center; 
+        margin-left:-150px;
+        color: #333;
+      }
+
+
+    .form-control {
+        /* display: block; */
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        color: green;
+        background-color: #f4f4f4;
+      
+  }
+  
+  .form-control:hover {
+    border-color: blue;
+  }
+  
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .btn {
+    margin-right: 0.5rem;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+  }
+  
+  .btn:hover {
+    background-color: #218838;
+  }
+  
+  .clear-btn {
+    background-color: #dc3545;
+  }
+  
+  .clear-btn:hover {
+    background-color: #c82333;
+  }
+  

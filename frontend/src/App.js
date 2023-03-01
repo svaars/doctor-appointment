@@ -1,9 +1,11 @@
 import logo from './logo.svg';
-import './App.css';
+import './App.css'
 import Button from './components/Button';
 import Input from './components/Input';
 import DoctorCard from './components/DoctorCard';
 import DoctorAvailability from './components/DoctorAvailability';
+import LoginForm from './components/Forms/LoginForm';
+import RegisterForm from './components/Forms/RegisterForm';
 
 function App() {
     const handleInputChange = (value) => {
@@ -11,7 +13,13 @@ function App() {
   }
   return (
     <>
-     <div>
+    <div className="App">
+      <RegisterForm />
+    </div>
+     {/* <div className="App">
+      <LoginForm />
+    </div> */}
+     {/* <div>
       <DoctorAvailability
         image="https://"
         name="Dr. lorem"
@@ -40,7 +48,7 @@ function App() {
     <div>
         <Button>Small Button</Button>
         <Button size="large">Large Button</Button>
-    </div>
+    </div> */}
     </>
   );
 }
