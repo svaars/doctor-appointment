@@ -14,6 +14,7 @@ const {
   verifyUser,
 } = require("../../auth/authenticate");
 const { ExtractJwt } = require("passport-jwt");
+const { CommonErrors, RespondError } = require("../../utils/responses");
 
 /*
     ENDPOINT : /user/signup
@@ -35,18 +36,17 @@ router.post("/signup", (req, res) => {
       req.body.password,
       (err, user) => {
         if (err) {
-          res.statusCode = 500;
-          res.send(err);
+          RespondError(res, CommonErrors.INTERNAL_ERROR, err);
         } else {
           user.firstname = req.body.firstname;
           user.lastname = req.body.lastname || "";
+          user.email = req.body.email;
           const token = getToken({ _id: user._id });
           const refreshToken = getRefreshToken({ _id: user._id });
           user.refreshToken.push({ refreshToken }); // Pushing the new refreshToken to the user in db
           user.save((err, user) => {
             if (err) {
-              res.statusCode = 500;
-              res.send(err);
+              RespondError(res, CommonErrors.INTERNAL_ERROR, err);
             } else {
               res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
               res.send({ succes: true, token });
@@ -75,8 +75,7 @@ router.post(
         user.refreshToken.push({ refreshToken });
         user.save((err, user) => {
           if (err) {
-            res.statusCode = 500;
-            res.send(err);
+            RespondError(res, CommonErrors.INTERNAL_ERROR, err);
           } else {
             res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
             res.send({ success: true, token });
@@ -114,8 +113,7 @@ router.post("/refresh-token", (req, res, next) => {
             );
 
             if (tokenIndex === -1) {
-              res.statusCode = 401;
-              res.send("Unauthorized");
+              RespondError(res, CommonErrors.UNAUTHORIZED);
             } else {
               const token = getToken({ _id: userId });
 
@@ -124,8 +122,7 @@ router.post("/refresh-token", (req, res, next) => {
               user.refreshToken[tokenIndex] = { refreshToken: newRefreshToken };
               user.save((err, user) => {
                 if (err) {
-                  res.statusCode = 500;
-                  res.send(err);
+                  RespondError(res, CommonErrors.INTERNAL_ERROR, err);
                 } else {
                   res.cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS);
                   res.send({ success: true, token });
@@ -166,8 +163,7 @@ router.get("/logout", verifyUser, (req, res) => {
 
       user.save((err, user) => {
         if (err) {
-          res.statusCode = 500;
-          res.send(err);
+          RespondError(res, CommonErrors.INTERNAL_ERROR, err);
         } else {
           res.clearCookie("refreshToken", COOKIE_OPTIONS);
           res.send({ success: true });
