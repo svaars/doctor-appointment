@@ -11,7 +11,7 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform form submission logic here
+    //submission logic 
   };
 
   const handleClear = () => {
@@ -30,6 +30,7 @@ const RegisterForm = () => {
         <div className="form-group">
           <label htmlFor="firstName" class="f1">First Name<span className="star2" style={{color: "red"}}>*</span></label>
           <input
+            placeholder='Enter Your Firstname'
             type="text"
             className="form-control"
             id="firstName"
@@ -41,6 +42,7 @@ const RegisterForm = () => {
         <div className="form-group">
           <label htmlFor="lastName" class="l1">Last Name<span className="star2" style={{color: "red"}}>*</span></label>
           <input
+            placeholder='Enter Your Lastname'
             type="text"
             className="form-control"
             id="lastName"
@@ -52,6 +54,7 @@ const RegisterForm = () => {
         <div className="form-group">
           <label htmlFor="email" class="e1">Email<span className="star2" style={{color: "red"}}>*</span><br></br></label>
           <input
+            placeholder='Enter Your EmailId'
             type="email"
             className="form-control"
             id="email"
@@ -63,6 +66,7 @@ const RegisterForm = () => {
         <div className="form-group">
           <label htmlFor="username" class="u1">Username<span className="star2" style={{color: "red"}}>*</span><br></br></label>
           <input
+            placeholder='Enter Your Username'
             type="text"
             className="form-control"
             id="username"
@@ -74,6 +78,7 @@ const RegisterForm = () => {
         <div className="form-group">
           <label htmlFor="password" class="p1">Password<span className="star2" style={{color: "red"}}>*</span><br></br></label>
           <input
+            placeholder='Enter Your Password'
             type="password"
             className="form-control"
             id="password"
@@ -85,6 +90,7 @@ const RegisterForm = () => {
         <div className="form-group">
           <label htmlFor="confirmPassword" class="p2">Confirm Password<span className="star2" style={{color: "red"}}>*</span><br></br></label>
           <input
+            placeholder='Confirm Your Password'
             type="password"
             className="form-control"
             id="confirmPassword"
