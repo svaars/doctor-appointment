@@ -3,10 +3,32 @@
         display: block;
         margin-bottom: 5px;
         text-align:center; 
-        margin-left:-150px;
+        /* margin-left:-150px; */
         color: #333;
       }
+      .f1 {
+         margin-right: 30px; 
+      }
 
+      .l1 {
+        margin-right: 30px; 
+     }
+
+     .e1 {
+      margin-right: 70px; 
+      }
+
+    .u1 {
+        margin-right: 40px; 
+     }
+
+     .p1 {
+      margin-right: 40px; 
+    }
+
+    .p2 {
+      margin-right: -30px; 
+   }
 
     .form-control {
         /* display: block; */

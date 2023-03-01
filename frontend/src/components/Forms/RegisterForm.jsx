@@ -28,7 +28,7 @@ const RegisterForm = () => {
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="firstName">First Name<span className="star2" style={{color: "red"}}>*</span></label>
+          <label htmlFor="firstName" class="f1">First Name<span className="star2" style={{color: "red"}}>*</span></label>
           <input
             type="text"
             className="form-control"
@@ -39,7 +39,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="lastName">Last Name<span className="star2" style={{color: "red"}}>*</span></label>
+          <label htmlFor="lastName" class="l1">Last Name<span className="star2" style={{color: "red"}}>*</span></label>
           <input
             type="text"
             className="form-control"
@@ -50,7 +50,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="email">Email<span className="star2" style={{color: "red"}}>*</span><br></br></label>
+          <label htmlFor="email" class="e1">Email<span className="star2" style={{color: "red"}}>*</span><br></br></label>
           <input
             type="email"
             className="form-control"
@@ -61,7 +61,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="username">Username<span className="star2" style={{color: "red"}}>*</span><br></br></label>
+          <label htmlFor="username" class="u1">Username<span className="star2" style={{color: "red"}}>*</span><br></br></label>
           <input
             type="text"
             className="form-control"
@@ -72,7 +72,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password<span className="star2" style={{color: "red"}}>*</span><br></br></label>
+          <label htmlFor="password" class="p1">Password<span className="star2" style={{color: "red"}}>*</span><br></br></label>
           <input
             type="password"
             className="form-control"
@@ -83,7 +83,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password<span className="star2" style={{color: "red"}}>*</span><br></br></label>
+          <label htmlFor="confirmPassword" class="p2">Confirm Password<span className="star2" style={{color: "red"}}>*</span><br></br></label>
           <input
             type="password"
             className="form-control"
