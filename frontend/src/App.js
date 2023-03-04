@@ -7,6 +7,8 @@ import DoctorAvailability from './components/DoctorAvailability';
 import LoginForm from './components/Forms/LoginForm';
 import RegisterForm from './components/Forms/RegisterForm';
 
+// App function
+
 function App() {
     const handleInputChange = (value) => {
     console.log('Input value is:', value);
