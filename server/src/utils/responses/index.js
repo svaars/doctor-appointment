@@ -13,7 +13,7 @@ const CommonErrors = {
 
 const RespondError = (res, error, more) => {
   const response = {};
-  res.code = error.code || 500;
+  res.statusCode = error.code || 500;
   response.message = error.message || "Some error occured!";
   more && (response.more = more);
 
