@@ -7,6 +7,7 @@ import DoctorAvailability from "./components/DoctorAvailability";
 import LoginForm from "./components/Forms/LoginForm";
 import RegisterForm from "./components/Forms/RegisterForm";
 import DoctorDashboard from "./pages/DoctorDashboard";
+import DoctorRegisterSecondPhase from "./components/Forms/DoctorRegisterSecondPhase";
 
 function App() {
   const handleInputChange = (value) => {
@@ -15,41 +16,10 @@ function App() {
   return (
     <>
       <div className="App">
-        <DoctorDashboard />
+        {/* <DoctorDashboard /> */}
+        {/* <DoctorRegisterSecondPhase /> */}
+        <RegisterForm />
       </div>
-      {/* <div className="App">
-        <LoginForm />
-      </div> */}
-      {/* <div>
-      <DoctorAvailability
-        image="https://"
-        name="Dr. lorem"
-        timeSlot="10:00 am - 11:00 am"
-        availabilityImage="https://"
-        availableSlots="25"
-        instructions="Click the button below to book your appointment"
-      />
-    </div>
-    <div>
-      <DoctorCard
-        image="https://"
-        name="Dr. lorem"
-        rating="4.8"
-        approval="95"
-        yearsOfExperience="25"
-        location="MUMBAI, MY"
-      />
-    </div>
-    <div>
-      <form>
-        <Input type="text" placeholder="Enter your name" onChange={handleInputChange} />
-        <Input type="password" placeholder="Enter your password" />
-      </form>
-    </div>
-    <div>
-        <Button>Small Button</Button>
-        <Button size="large">Large Button</Button>
-    </div> */}
     </>
   );
 }
