@@ -1,5 +1,9 @@
-import '../Style/RegisterForm.css';
+import "../Style/RegisterForm.css";
 import React, { useState } from "react";
+
+import axios from "axios";
+
+const base_uri = "http://localhost:5000";
 
 const RegisterForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -11,7 +15,26 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //submission logic 
+    //submission logic
+
+    // Todo: Validation
+    const data = {
+      firstname: firstName,
+      lastname: lastName,
+      email,
+      username,
+      password,
+    };
+    axios
+      .post(base_uri + "/users/signup", data)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log("Successfully registered!");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleClear = () => {
@@ -28,9 +51,14 @@ const RegisterForm = () => {
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="firstName" class="f1">First Name<span className="star2" style={{color: "red"}}>*</span></label>
+          <label htmlFor="firstName" className="f1">
+            First Name
+            <span className="star2" style={{ color: "red" }}>
+              *
+            </span>
+          </label>
           <input
-            placeholder='Enter Your Firstname'
+            placeholder="Enter Your Firstname"
             type="text"
             className="form-control"
             id="firstName"
@@ -40,9 +68,14 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="lastName" class="l1">Last Name<span className="star2" style={{color: "red"}}>*</span></label>
+          <label htmlFor="lastName" className="l1">
+            Last Name
+            <span className="star2" style={{ color: "red" }}>
+              *
+            </span>
+          </label>
           <input
-            placeholder='Enter Your Lastname'
+            placeholder="Enter Your Lastname"
             type="text"
             className="form-control"
             id="lastName"
@@ -52,9 +85,15 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="email" class="e1">Email<span className="star2" style={{color: "red"}}>*</span><br></br></label>
+          <label htmlFor="email" className="e1">
+            Email
+            <span className="star2" style={{ color: "red" }}>
+              *
+            </span>
+            <br></br>
+          </label>
           <input
-            placeholder='Enter Your EmailId'
+            placeholder="Enter Your EmailId"
             type="email"
             className="form-control"
             id="email"
@@ -64,9 +103,15 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="username" class="u1">Username<span className="star2" style={{color: "red"}}>*</span><br></br></label>
+          <label htmlFor="username" className="u1">
+            Username
+            <span className="star2" style={{ color: "red" }}>
+              *
+            </span>
+            <br></br>
+          </label>
           <input
-            placeholder='Enter Your Username'
+            placeholder="Enter Your Username"
             type="text"
             className="form-control"
             id="username"
@@ -76,9 +121,15 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password" class="p1">Password<span className="star2" style={{color: "red"}}>*</span><br></br></label>
+          <label htmlFor="password" className="p1">
+            Password
+            <span className="star2" style={{ color: "red" }}>
+              *
+            </span>
+            <br></br>
+          </label>
           <input
-            placeholder='Enter Your Password'
+            placeholder="Enter Your Password"
             type="password"
             className="form-control"
             id="password"
@@ -88,9 +139,15 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="confirmPassword" class="p2">Confirm Password<span className="star2" style={{color: "red"}}>*</span><br></br></label>
+          <label htmlFor="confirmPassword" className="p2">
+            Confirm Password
+            <span className="star2" style={{ color: "red" }}>
+              *
+            </span>
+            <br></br>
+          </label>
           <input
-            placeholder='Confirm Your Password'
+            placeholder="Confirm Your Password"
             type="password"
             className="form-control"
             id="confirmPassword"
@@ -98,9 +155,18 @@ const RegisterForm = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-        </div><br></br>
-        <button type="submit" className="btn btn-primary">Register</button>
-        <button type="button" className="btn btn-secondary" onClick={handleClear}>Clear</button>
+        </div>
+        <br></br>
+        <button type="submit" className="btn btn-primary">
+          Register
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleClear}
+        >
+          Clear
+        </button>
       </form>
     </div>
   );
