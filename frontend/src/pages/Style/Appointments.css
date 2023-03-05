@@ -1,0 +1,57 @@
+#appointments{
+    padding: 64px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+
+.sessions-list{
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+    min-width: 600px;
+    gap: 32px;
+}
+
+
+.session-card .session-header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+
+.session-card .session-title{
+    font-size: 1.4em;
+}
+
+.session-card .session-user-list{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.session-card .session-user-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.session-card .session-user-card .profile-details{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+}
+
+.session-card .session-user-card .profile-details .user-name{
+    font-weight: bold;
+}
+
+.session-card .session-user-card .action-buttons{
+    display: flex;
+    gap: 16px;
+}
+
