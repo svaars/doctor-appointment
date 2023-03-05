@@ -1,0 +1,65 @@
+.datePickerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 25%;
+    background-color: lightgrey;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 5px;
+    margin-left: 250px;
+  }
+  
+  .datePickerScrollBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .datePickerItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 5px;
+    font-size: 15px;
+    font-weight: normal;
+    color: black;
+    transition: background-color 0.3s;
+  }
+  
+  .datePickerItem:hover {
+    background-color: white;
+    color: black;
+  }
+  
+  .datePickerItem:nth-child(n+5) {
+    display: none;
+  }
+  
+  .arrowButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: white;
+    border: none;
+    margin: 5px;
+  }
+  
+  .arrowButton:hover {
+    background-color: whitesmoke;
+  }
+  
+  
+  .arrowButton > span {
+    font-size: 20px;
+    color: black;
+  }
+  

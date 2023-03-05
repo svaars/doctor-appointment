@@ -6,6 +6,9 @@ import DoctorCard from './components/DoctorCard';
 import DoctorAvailability from './components/DoctorAvailability';
 import LoginForm from './components/Forms/LoginForm';
 import RegisterForm from './components/Forms/RegisterForm';
+import DatePicker from './components/DatePicker';
+
+
 
 function App() {
     const handleInputChange = (value) => {
@@ -13,13 +16,16 @@ function App() {
   }
   return (
     <>
-    <div className="App">
-      <RegisterForm />
-    </div>
+      <div>
+        <DatePicker />
+      </div>  
      {/* <div className="App">
+      <RegisterForm />
+    </div>  */}
+    {/* <div className="App">
       <LoginForm />
-    </div> */}
-     {/* <div>
+    </div>  */}
+       <div>
       <DoctorAvailability
         image="https://"
         name="Dr. lorem"
@@ -28,18 +34,18 @@ function App() {
         availableSlots="25"
         instructions="Click the button below to book your appointment"
       />
-    </div>
-    <div>
-      <DoctorCard
-        image="https://"
-        name="Dr. lorem"
-        rating="4.8"
-        approval="95"
-        yearsOfExperience="25"
-        location="MUMBAI, MY"
-      />
-    </div>
-    <div>
+    </div> 
+       {/* <div>
+        <DoctorCard
+          image="https://cdn.pixabay.com/photo/2016/09/28/02/35/doctor-1699656__340.jpg"
+          name="Dr. lorem"
+          rating="4.8"
+          approval="95"
+          yearsOfExperience="25"
+          location="MUMBAI, MY"
+        />
+      </div>  */}
+    {/* <div>
       <form>
         <Input type="text" placeholder="Enter your name" onChange={handleInputChange} />
         <Input type="password" placeholder="Enter your password" />
@@ -48,7 +54,7 @@ function App() {
     <div>
         <Button>Small Button</Button>
         <Button size="large">Large Button</Button>
-    </div> */}
+    </div>  */}
     </>
   );
 }
