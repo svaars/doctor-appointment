@@ -10,6 +10,8 @@ import DatePicker from './components/DatePicker';
 
 
 
+// App function
+
 function App() {
     const handleInputChange = (value) => {
     console.log('Input value is:', value);
