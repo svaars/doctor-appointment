@@ -3,6 +3,8 @@ import React, { useState } from "react";
 
 import axios from "axios";
 
+import { Alert } from "antd";
+
 const base_uri = "http://localhost:5000";
 
 const RegisterForm = () => {
@@ -13,9 +15,17 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  // Success message
+  const [success, setSuccess] = useState(false);
+
+  // Error message
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     //submission logic
+
+    setErrorMessage(null);
 
     // Todo: Validation
     const data = {
@@ -29,11 +39,21 @@ const RegisterForm = () => {
       .post(base_uri + "/users/signup", data)
       .then((res) => {
         if (res.status === 200) {
-          console.log("Successfully registered!");
+          // Register success
+
+          setSuccess(true);
+          // Load the token to context
+
+          // Redirect to next dashboard
         }
       })
       .catch((err) => {
-        console.log(err);
+        const data = err.response.data;
+        if (data.more.message) {
+          setErrorMessage(data.more.message);
+        } else {
+          setErrorMessage("Unknown");
+        }
       });
   };
 
@@ -50,6 +70,23 @@ const RegisterForm = () => {
     <div>
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
+        {success && (
+          <Alert
+            message="Successfully registered!"
+            type="success"
+            style={{ maxWidth: "400px", margin: "auto" }}
+          />
+        )}
+
+        {errorMessage && (
+          <Alert
+            message="Could not register user!"
+            description={errorMessage}
+            type="error"
+            style={{ maxWidth: "400px", margin: "auto" }}
+          />
+        )}
+
         <div className="form-group">
           <label htmlFor="firstName" className="f1">
             First Name
