@@ -5,6 +5,9 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import DoctorDashboard from "./pages/DoctorDashboard";
+import Signup from "./pages/Signup";
+import DoctorRegister from "./pages/DoctorRegister";
 
 const router = createBrowserRouter([
   {
@@ -12,12 +15,20 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
         path: "/doctor-signup",
-        element: <>Signup!</>,
+        element: <DoctorRegister />,
       },
       {
         path: "/login",
         element: <>Login!</>,
+      },
+      {
+        path: "/doctor-dashboard",
+        element: <DoctorDashboard />,
       },
     ],
   },

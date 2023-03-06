@@ -1,8 +1,13 @@
 
+.form-group{
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  justify-content: start;
+}
+
      label {
-        display: block;
         margin-bottom: 5px;
-        text-align:center; 
         color: #333;
       }
       .f1 {

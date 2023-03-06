@@ -7,7 +7,7 @@ import { Alert } from "antd";
 
 const base_uri = "http://localhost:5000";
 
-const RegisterForm = () => {
+const RegisterForm = ({ userType }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,6 +34,7 @@ const RegisterForm = () => {
       email,
       username,
       password,
+      usertype: userType || "user",
     };
     axios
       .post(base_uri + "/users/signup", data)
@@ -68,7 +69,6 @@ const RegisterForm = () => {
 
   return (
     <div>
-      <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         {success && (
           <Alert
