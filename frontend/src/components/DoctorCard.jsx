@@ -1,5 +1,5 @@
-import './Style/DoctorCard.css';
-import React from 'react';
+// import './Style/DoctorCard.css';
+import React from "react";
 
 function DoctorCard(props) {
   return (
@@ -10,11 +10,12 @@ function DoctorCard(props) {
       <div className="doctor-details">
         <h2 className="doctor-name">{props.name}</h2>
         <div className="doctor-ratings">
-      
           <span className="doctor-stars">{props.rating}</span>
           <span className="doctor-approval">{props.approval}% approval</span>
         </div>
-        <div className="doctor-experience">{props.yearsOfExperience} years of experience</div>
+        <div className="doctor-experience">
+          {props.yearsOfExperience} years of experience
+        </div>
         <div className="doctor-location">{props.location}</div>
         {/* <button className="book-button">Book now</button> */}
       </div>
