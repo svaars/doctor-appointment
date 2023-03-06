@@ -1,9 +1,11 @@
 import "../Style/RegisterForm.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import axios from "axios";
 
 import { Alert } from "antd";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router";
 
 const base_uri = "http://localhost:5000";
 
@@ -20,6 +22,10 @@ const RegisterForm = ({ userType }) => {
 
   // Error message
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const { setToken } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,8 +50,9 @@ const RegisterForm = ({ userType }) => {
 
           setSuccess(true);
           // Load the token to context
-
+          setToken(res.data.token);
           // Redirect to next dashboard
+          if (userType == "doctor") navigate("/doctor-dashboard");
         }
       })
       .catch((err) => {

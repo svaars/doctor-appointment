@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import Signup from "./pages/Signup";
 import DoctorRegister from "./pages/DoctorRegister";
+import AuthContextComponent from "./context/AuthContext";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthContextComponent>
+      <RouterProvider router={router} />
+    </AuthContextComponent>
   </React.StrictMode>
 );
 
