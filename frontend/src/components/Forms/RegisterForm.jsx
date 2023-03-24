@@ -17,6 +17,8 @@ const RegisterForm = ({ userType }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   // Success message
   const [success, setSuccess] = useState(false);
 
@@ -29,6 +31,7 @@ const RegisterForm = ({ userType }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     //submission logic
 
     setErrorMessage(null);
@@ -43,8 +46,10 @@ const RegisterForm = ({ userType }) => {
       usertype: userType || "user",
     };
     axios
-      .post(base_uri + "/users/signup", data)
+      .post(base_uri + "/users/signup", data, { withCredentials: true })
       .then((res) => {
+        setIsSubmitting(false);
+
         if (res.status === 200) {
           // Register success
 
@@ -56,6 +61,8 @@ const RegisterForm = ({ userType }) => {
         }
       })
       .catch((err) => {
+        setIsSubmitting(false);
+
         const data = err.response.data;
         if (data.more.message) {
           setErrorMessage(data.more.message);
@@ -201,8 +208,12 @@ const RegisterForm = ({ userType }) => {
           />
         </div>
         <br></br>
-        <button type="submit" className="btn btn-primary">
-          Register
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? <>Registering</> : <>Register</>}
         </button>
         <button
           type="button"

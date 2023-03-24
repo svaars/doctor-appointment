@@ -8,12 +8,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import Signup from "./pages/Signup";
 import DoctorRegister from "./pages/DoctorRegister";
+import Login from "./pages/Login";
 import AuthContextComponent from "./context/AuthContext";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <AuthContextComponent>
+        <App />
+      </AuthContextComponent>
+    ),
     children: [
       {
         path: "/signup",
@@ -25,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <>Login!</>,
+        element: <Login />,
       },
       {
         path: "/doctor-dashboard",
@@ -38,9 +43,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AuthContextComponent>
-      <RouterProvider router={router} />
-    </AuthContextComponent>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

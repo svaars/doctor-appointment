@@ -32,7 +32,7 @@ router.post("/signup", (req, res) => {
   } else {
     // TODO: Ensure username and password is avaialble and valid
     User.register(
-      new User({ username: req.body.username }),
+      new User({ username: req.body.username, userType: req.body.usertype }),
       req.body.password,
       (err, user) => {
         if (err) {
@@ -88,7 +88,7 @@ router.post(
 );
 
 /*
-    ENDPOINT : /user/refres-token
+    ENDPOINT : /user/refresh-token
     BODY: {  }
     EXPECTS refreshToken as cookie
     RETURN: { success: true, token: jwt_token }, refreshToken COOKIE
@@ -125,6 +125,7 @@ router.post("/refresh-token", (req, res, next) => {
                   RespondError(res, CommonErrors.INTERNAL_ERROR, err);
                 } else {
                   res.cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS);
+                  res.statusCode = 200;
                   res.send({ success: true, token });
                 }
               });

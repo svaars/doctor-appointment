@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 import {
   FileOutlined,
@@ -7,7 +10,6 @@ import {
   ScheduleOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import { useState } from "react";
 import Appointments from "./Appointments";
 const { Content, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -29,6 +31,10 @@ export default function DoctorDashboard() {
   const [collapsed, setCollapsed] = useState(false);
   const [selected, setSelected] = useState("appointments");
 
+  const { token, verifyUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
   const DisplaySelectedContent = () => {
     switch (selected) {
       case "appointments":
@@ -37,6 +43,13 @@ export default function DoctorDashboard() {
         return <>Todo</>;
     }
   };
+
+  useEffect(() => {
+    // If token is not available ask the user to login
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token]);
 
   return (
     <Layout

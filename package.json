@@ -1,0 +1,11 @@
+{
+  "name": "doctor-appointment",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "frontend": "cd ./frontend/ && npm start",
+    "server": "cd ./server/ && npm run dev",
+    "dev": "cd ./frontend/ && npm start && cd ../server/ && npm run dev",
+    "start": "cd ./frontend/ && npm start && cd ../server/ && npm start"
+  }
+}

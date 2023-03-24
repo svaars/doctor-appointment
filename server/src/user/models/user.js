@@ -10,6 +10,63 @@ const Session = new Schema({
   },
 });
 
+const GeneralUser = new Schema({
+  phoneNumber: {
+    type: Number,
+  },
+  dob: {
+    type: Date,
+  },
+  gender: {
+    type: String,
+  },
+});
+
+const Clinical = new Schema({
+  clinicName: {
+    type: String,
+  },
+  street: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  state: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
+  pincode: {
+    type: String,
+  },
+});
+
+const Doctor = new Schema({
+  specialization: {
+    type: String,
+  },
+  registrationNo: {
+    type: String,
+  },
+  registrationYear: {
+    type: String,
+  },
+  stateCouncil: {
+    type: String,
+  },
+  qualification: {
+    type: String,
+  },
+  college: {
+    type: String,
+  },
+  clinic: {
+    type: Clinical,
+  },
+});
+
 const User = new Schema({
   firstname: {
     type: String,
@@ -29,6 +86,18 @@ const User = new Schema({
   },
   refreshToken: {
     type: [Session],
+  },
+  userType: {
+    type: String,
+    enum: ["doctor", "user", "admin"],
+    default: "user",
+    required: true,
+  },
+  generalData: {
+    type: GeneralUser,
+  },
+  doctorData: {
+    type: Doctor,
   },
 });
 

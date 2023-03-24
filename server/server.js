@@ -38,7 +38,7 @@ const corsOption = {
     }
   },
 
-  credential: true,
+  credentials: true,
 };
 app.use(cors(corsOption));
 // #endregion
