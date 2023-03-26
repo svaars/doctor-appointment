@@ -1,59 +1,55 @@
-import React, { useState } from 'react';
-import './Style/DatePicker.css';
+import React, { useState } from "react";
+import "./Style/DatePicker.css";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Card } from "antd";
 
+const AddDay = (date, day) => {
+  const d = new Date(date);
+  d.setDate(d.getDate() + day);
+  return d;
+};
 
-const DatePicker = () => {
-  // set initial dates to be shown in scroll bar
-  const [dates, setDates] = useState([
-    'Mar 1',
-    'Mar 2',
-    'Mar 3',
-    'Mar 4',
-    'Mar 5',
-  ]);
-
-  // function to handle click on arrow buttons
-  const handleArrowClick = (direction) => {
-    // calculate new index of first date to be shown in scroll bar based on direction
-    const firstIndex =
-      direction === 'left' ? Math.max(0, dates[0] - 1) : dates[0] + 1;
-    // generate new array of dates to be shown in scroll bar
-    const newDates = [
-      `March ${firstIndex}`,
-      `March ${firstIndex + 1}`,
-      `March ${firstIndex + 2}`,
-      `March ${firstIndex + 3}`,
-      `March ${firstIndex + 4}`,
-    ];
-    setDates(newDates);
-  };
-
+const DatePicker = ({ date, onChangeDate }) => {
   return (
-    <div className="datePickerContainer">
-      {/* left arrow button */}
-      <button
-        className="arrowButton leftArrowButton"
-        onClick={() => handleArrowClick('left')}
-      >
-        {'<'}
-      </button>
-      {/* scroll bar */}
-      <div className="datePickerScrollBar">
-        {dates.map((date, index) => (
-          <div key={index} className="datePickerItem">
-            {date}
-          </div>
-        ))}
+    <div className="date-picker-wrapper">
+      <div className="date-picker-year">{date.getFullYear()}</div>
+      <div className="date-picker-date">
+        <button
+          className="date-picker-left"
+          onClick={() => onChangeDate("left")}
+        >
+          <LeftOutlined />
+        </button>
+        <div className="date-picker-scroll">
+          <DateCard date={AddDay(date, -2)} />
+          <DateCard date={AddDay(date, -1)} />
+          <DateCard date={date} selected />
+          <DateCard date={AddDay(date, 1)} />
+          <DateCard date={AddDay(date, 2)} />
+        </div>
+        {/* right arrow button */}
+        <button
+          className="date-picker-right"
+          onClick={() => onChangeDate("right")}
+        >
+          <RightOutlined />
+        </button>
       </div>
-      {/* right arrow button */}
-      <button
-        className="arrowButton rightArrowButton"
-        onClick={() => handleArrowClick('right')}
-      >
-        {'>'}
-      </button>
     </div>
   );
 };
+
+function DateCard({ date, selected = false }) {
+  return (
+    <div className="date-card-wrapper">
+      <Card style={{ opacity: selected ? "1" : ".6" }}>
+        <div id="date-month">
+          {date.toLocaleString("default", { month: "short" })}
+        </div>
+        <div id="date-day">{date.getDate()}</div>
+      </Card>
+    </div>
+  );
+}
 
 export default DatePicker;

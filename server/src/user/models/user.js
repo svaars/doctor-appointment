@@ -10,7 +10,7 @@ const Session = new Schema({
   },
 });
 
-const GeneralUser = new Schema({
+const GeneralUser = {
   phoneNumber: {
     type: Number,
   },
@@ -20,9 +20,9 @@ const GeneralUser = new Schema({
   gender: {
     type: String,
   },
-});
+};
 
-const Clinical = new Schema({
+const Clinical = {
   clinicName: {
     type: String,
   },
@@ -41,9 +41,9 @@ const Clinical = new Schema({
   pincode: {
     type: String,
   },
-});
+};
 
-const Doctor = new Schema({
+const Doctor = {
   specialization: {
     type: String,
   },
@@ -65,7 +65,7 @@ const Doctor = new Schema({
   clinic: {
     type: Clinical,
   },
-});
+};
 
 const User = new Schema({
   firstname: {

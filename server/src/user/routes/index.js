@@ -15,6 +15,7 @@ const {
 } = require("../../auth/authenticate");
 const { ExtractJwt } = require("passport-jwt");
 const { CommonErrors, RespondError } = require("../../utils/responses");
+const { CompleteSignup } = require("../controller");
 
 /*
     ENDPOINT : /user/signup
@@ -22,41 +23,137 @@ const { CommonErrors, RespondError } = require("../../utils/responses");
     RETURN: { success: true, token: jwt_token }, refreshToken COOKIE
 */
 router.post("/signup", (req, res) => {
+  const { userType } = req.body;
   // TODO: Do more input validations
-  if (!req.body.firstname) {
-    res.statusCode = 500;
-    res.send({
-      name: "FirstNameError",
-      message: "The first name should not be empty!",
-    });
-  } else {
-    // TODO: Ensure username and password is avaialble and valid
-    User.register(
-      new User({ username: req.body.username, userType: req.body.usertype }),
-      req.body.password,
-      (err, user) => {
-        if (err) {
-          RespondError(res, CommonErrors.INTERNAL_ERROR, err);
-        } else {
-          user.firstname = req.body.firstname;
-          user.lastname = req.body.lastname || "";
-          user.email = req.body.email;
-          const token = getToken({ _id: user._id });
-          const refreshToken = getRefreshToken({ _id: user._id });
-          user.refreshToken.push({ refreshToken }); // Pushing the new refreshToken to the user in db
-          user.save((err, user) => {
-            if (err) {
-              RespondError(res, CommonErrors.INTERNAL_ERROR, err);
-            } else {
-              res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
-              res.send({ succes: true, token });
-            }
-          });
+  if (userType == "doctor") {
+    const {
+      firstname,
+      lastname,
+      email,
+      username,
+      password,
+      phoneNumber,
+      dob,
+      gender,
+      specialization,
+      regNo,
+      regYear,
+      stateCouncil,
+      qualification,
+      college,
+
+      clinicName,
+      street,
+      city,
+      state,
+      country,
+      pincode,
+    } = req.body;
+
+    if (
+      !firstname ||
+      !username ||
+      !email ||
+      !password ||
+      !phoneNumber ||
+      !dob ||
+      !gender ||
+      !specialization ||
+      !regNo ||
+      !regYear ||
+      !stateCouncil ||
+      !qualification ||
+      !college ||
+      !clinicName ||
+      !street ||
+      !city ||
+      !state ||
+      !country ||
+      !pincode
+    ) {
+      RespondError(res, CommonErrors.BAD_REQUEST, {
+        message: "Required fields missing!",
+      });
+    } else {
+      // TODO: Ensure username and password is avaialble and valid
+      User.register(
+        new User({ username: req.body.username }),
+        req.body.password,
+        (err, user) => {
+          if (err) {
+            RespondError(res, CommonErrors.INTERNAL_ERROR, err);
+          } else {
+            user.userType = userType;
+            user.firstname = firstname;
+            user.lastname = lastname || "";
+            user.email = email;
+
+            user.generalData = {};
+            user.generalData.phoneNumber = phoneNumber;
+            user.generalData.dob = dob;
+            user.generalData.gender = gender;
+
+            user.doctorData = {};
+            user.doctorData.specialization = specialization;
+            user.doctorData.registrationNo = regNo;
+            user.doctorData.registrationYear = regYear;
+            user.doctorData.stateCouncil = stateCouncil;
+            user.doctorData.qualification = qualification;
+            user.doctorData.college = college;
+
+            user.doctorData.clinic = {};
+            user.doctorData.clinic.clinicName = clinicName;
+            user.doctorData.clinic.street = street;
+            user.doctorData.clinic.city = city;
+            user.doctorData.clinic.state = state;
+            user.doctorData.clinic.country = country;
+            user.doctorData.clinic.pincode = pincode;
+
+            const token = getToken({ _id: user._id });
+            const refreshToken = getRefreshToken({ _id: user._id });
+            user.refreshToken.push({ refreshToken }); // Pushing the new refreshToken to the user in db
+            user.save((err, user) => {
+              if (err) {
+                RespondError(res, CommonErrors.INTERNAL_ERROR, err);
+                console.log(err);
+              } else {
+                res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
+                res.send({ succes: true, token });
+              }
+            });
+          }
         }
-      }
-    );
+      );
+    }
   }
 });
+
+// router.post("/doctor-complete-signup", verifyUser, async (req, res) => {
+//   try {
+//     await CompleteSignup(
+//       req.user._id,
+//       phone,
+//       dob,
+//       gender,
+//       specialization,
+//       regNo,
+//       regYear,
+//       stateCouncil,
+//       qualification,
+//       college,
+
+//       clinicName,
+//       street,
+//       city,
+//       state,
+//       country,
+//       pincode
+//     );
+//     res.send({ success: true });
+//   } catch (err) {
+//     RespondError(res, CommonErrors.INTERNAL_ERROR);
+//   }
+// });
 
 /*
     ENDPOINT : /user/login
@@ -78,7 +175,11 @@ router.post(
             RespondError(res, CommonErrors.INTERNAL_ERROR, err);
           } else {
             res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
-            res.send({ success: true, token });
+            if (user.userType === "doctor" && !user.doctorDetails) {
+              res.send({ success: true, promptCompleteSignup: true, token });
+            } else {
+              res.send({ success: true, token });
+            }
           }
         });
       },

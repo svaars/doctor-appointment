@@ -5,7 +5,7 @@ import "./Style/Appointments.css";
 import Search from "antd/es/transfer/search";
 import { Button, Card } from "antd";
 
-import ProfileImage from "../components/ProfileImage";
+import ProfileImage from "../../ProfileImage";
 
 export default function Appointments() {
   return (

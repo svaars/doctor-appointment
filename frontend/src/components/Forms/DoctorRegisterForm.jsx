@@ -1,61 +1,144 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
-import { Button, Steps, Form, Input, DatePicker, Select } from "antd";
+import { Button, Form, Input, DatePicker, Select, Divider, Alert } from "antd";
+import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
+import { useForm } from "antd/es/form/Form";
+import { useNavigate } from "react-router-dom";
 
-export default function DoctorRegisterSecondPhase() {
-  const steps = [
-    {
-      title: "General",
-      content: <GeneralDetailsForm />,
-    },
-    {
-      title: "Medical",
-      content: <MedicalDetailsForm />,
-    },
-    {
-      title: "Clinic",
-      content: <ClinicDetailsForm />,
-    },
-  ];
-  const items = steps.map((item) => {
-    return { key: item.title, title: item.title };
-  });
+const base_uri = "http://localhost:5000";
 
-  const NextStep = () => {
-    if (currentStep < steps.length - 1) setCurrentStep((prev) => prev + 1);
+export default function DoctorRegisterForm() {
+  const [form] = useForm();
+  const { setToken } = useContext(AuthContext);
+  const [success, setSuccess] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const onFinishHandler = (data) => {
+    setSubmitting(true);
+    data.dob = data.dob.toDate();
+    data.regYear = data.regYear.year();
+    data.userType = "doctor";
+    // console.log(data);
+
+    axios
+      .post(base_uri + "/users/signup", data, { withCredentials: true })
+      .then((res) => {
+        if (res.status === 200) {
+          // Register success
+          setSuccess(true);
+          // Load the token to context
+          setToken(res.data.token);
+          form.resetFields();
+          // Redirect to next dashboard
+          navigate("/doctor/app");
+        }
+      })
+      .catch((err) => {
+        // setIsSubmitting(false);
+        // console.log(err);
+        const data = err.response.data;
+        if (data.more.message) {
+          setErrorMessage(data.more.message);
+        } else {
+          setErrorMessage("Unknown");
+        }
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
   };
-
-  const PreviousStep = () => {
-    if (currentStep > 0) setCurrentStep((prev) => prev - 1);
-  };
-
-  const [currentStep, setCurrentStep] = useState(0);
   return (
-    <div id="doctor-register-second-phase">
-      <Steps items={items} current={currentStep} size="small" />
-
+    <div id="doctor-register-form-wrapper">
       <div className="form">
-        <Form
-          name="basic"
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          style={{
-            maxWidth: 600,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          autoComplete="off"
-        >
-          {steps[currentStep].content}
-        </Form>
+        {success && (
+          <Alert
+            message="Successfully registered!"
+            type="success"
+            style={{ maxWidth: "400px", margin: "auto" }}
+          />
+        )}
+
+        {errorMessage && (
+          <Alert
+            message="Could not register user!"
+            description={errorMessage}
+            type="error"
+            style={{ maxWidth: "400px", margin: "auto" }}
+          />
+        )}
+        {!success && (
+          <Form
+            scrollToFirstError
+            name="basic"
+            form={form}
+            labelCol={{
+              span: 8,
+            }}
+            wrapperCol={{
+              span: 16,
+            }}
+            style={{
+              maxWidth: 600,
+            }}
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinishHandler}
+            onFinishFailed={() => [console.log("err")]}
+            autoComplete="off"
+          >
+            {/* {steps[currentStep].content} */}
+            <GeneralDetailsForm />
+            <MedicalDetailsForm />
+            <ClinicDetailsForm />
+
+            {success && (
+              <Alert
+                message="Successfully registered!"
+                type="success"
+                style={{ maxWidth: "400px", margin: "auto" }}
+              />
+            )}
+
+            {errorMessage && (
+              <Alert
+                message="Could not register user!"
+                description={errorMessage}
+                type="error"
+                style={{ maxWidth: "400px", margin: "auto" }}
+              />
+            )}
+
+            <div
+              className="form-buttons"
+              style={{ display: "flex", justifyContent: "center", gap: "8px" }}
+            >
+              <Form.Item
+                wrapperCol={{
+                  offset: 8,
+                  span: 16,
+                }}
+              >
+                <Button type="primary" htmlType="submit" loading={submitting}>
+                  Submit
+                </Button>
+              </Form.Item>
+
+              <Form.Item
+                wrapperCol={{
+                  offset: 8,
+                  span: 16,
+                }}
+              >
+                <Button htmlType="reset">Reset</Button>
+              </Form.Item>
+            </div>
+          </Form>
+        )}
       </div>
-      <Button onClick={() => NextStep()}>Next</Button>
-      <Button onClick={() => PreviousStep()}>Previous</Button>
     </div>
   );
 }
@@ -63,9 +146,95 @@ export default function DoctorRegisterSecondPhase() {
 function GeneralDetailsForm() {
   return (
     <>
+      <Divider orientation="left">
+        <h5>General</h5>
+      </Divider>
+      <Form.Item
+        label="First name"
+        name="firstname"
+        rules={[
+          {
+            required: true,
+            message: "Please input your first name!",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item label="Last name" name="lastname">
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Username"
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: "Please input your username!",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          {
+            required: true,
+            type: "email",
+            message: "Please input a valid email!",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="password"
+        label="Password"
+        rules={[
+          {
+            required: true,
+            message: "Please input your password!",
+          },
+        ]}
+        hasFeedback
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item
+        name="confirm"
+        label="Confirm Password"
+        dependencies={["password"]}
+        hasFeedback
+        rules={[
+          {
+            required: true,
+            message: "Please confirm your password!",
+          },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue("password") === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(
+                new Error("The two passwords that you entered do not match!")
+              );
+            },
+          }),
+        ]}
+      >
+        <Input.Password />
+      </Form.Item>
+
       <Form.Item
         label="Phone number"
-        name="phone-number"
+        name="phoneNumber"
         rules={[
           {
             required: true,
@@ -174,6 +343,9 @@ const med_council = [
 function MedicalDetailsForm() {
   return (
     <>
+      <Divider orientation="left">
+        <h5>Medical Certification Details</h5>
+      </Divider>
       <Form.Item
         label="Specialization"
         name="specialization"
@@ -198,7 +370,7 @@ function MedicalDetailsForm() {
 
       <Form.Item
         label="Medical registration no."
-        name="medical-reg-no"
+        name="regNo"
         rules={[
           {
             required: true,
@@ -211,7 +383,7 @@ function MedicalDetailsForm() {
 
       <Form.Item
         label="Year of registration"
-        name="medical-reg-year"
+        name="regYear"
         rules={[
           {
             required: true,
@@ -224,7 +396,7 @@ function MedicalDetailsForm() {
 
       <Form.Item
         label="State medical council"
-        name="medical-council"
+        name="stateCouncil"
         rules={[
           {
             required: true,
@@ -280,9 +452,12 @@ function MedicalDetailsForm() {
 function ClinicDetailsForm() {
   return (
     <>
+      <Divider orientation="left">
+        <h5>Clinical Details</h5>
+      </Divider>
       <Form.Item
         label="Clinic name"
-        name="clinic-name"
+        name="clinicName"
         rules={[
           {
             required: true,
@@ -295,7 +470,7 @@ function ClinicDetailsForm() {
 
       <Form.Item
         label="Street"
-        name="clinic-street"
+        name="street"
         rules={[
           {
             required: true,
@@ -308,7 +483,7 @@ function ClinicDetailsForm() {
 
       <Form.Item
         label="City"
-        name="clinic-city"
+        name="city"
         rules={[
           {
             required: true,
@@ -321,7 +496,7 @@ function ClinicDetailsForm() {
 
       <Form.Item
         label="State"
-        name="clinic-state"
+        name="state"
         rules={[
           {
             required: true,
@@ -334,7 +509,7 @@ function ClinicDetailsForm() {
 
       <Form.Item
         label="Country"
-        name="clinic-country"
+        name="country"
         rules={[
           {
             required: true,
@@ -347,7 +522,7 @@ function ClinicDetailsForm() {
 
       <Form.Item
         label="Pincode"
-        name="clinic-pincode"
+        name="pincode"
         rules={[
           {
             required: true,

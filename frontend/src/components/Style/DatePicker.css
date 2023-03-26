@@ -1,65 +1,41 @@
-.datePickerContainer {
+.date-picker-wrapper{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 32px;
+  width: min-content;
+  border-radius: 8px;
+}
+
+.date-picker-year{
+  margin-bottom: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.date-picker-date {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 25%;
-    background-color: lightgrey;
-    border-radius: 20px;
-    overflow: hidden;
-    padding: 5px;
-    margin-left: 250px;
+    background-color: #E1E1E1;
+    padding: 12px;
+    border-radius: 8px;
   }
   
-  .datePickerScrollBar {
+  .date-picker-scroll {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
   }
   
-  .datePickerItem {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin: 5px;
-    font-size: 15px;
-    font-weight: normal;
-    color: black;
-    transition: background-color 0.3s;
+  .date-card-wrapper {
+    margin: 8px;
+    text-align: center;
   }
   
-  .datePickerItem:hover {
-    background-color: white;
-    color: black;
-  }
-  
-  .datePickerItem:nth-child(n+5) {
-    display: none;
-  }
-  
-  .arrowButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+  .date-picker-left, .date-picker-right{
     background-color: white;
     border: none;
-    margin: 5px;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
   }
-  
-  .arrowButton:hover {
-    background-color: whitesmoke;
-  }
-  
-  
-  .arrowButton > span {
-    font-size: 20px;
-    color: black;
-  }
-  

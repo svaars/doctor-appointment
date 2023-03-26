@@ -44,7 +44,6 @@ const LoginForm = () => {
       .post(base_uri + "/users/login", data, { withCredentials: true })
       .then((res) => {
         setIsSubmitting(false);
-
         if (res.status === 200) {
           // Register success
 
@@ -52,9 +51,8 @@ const LoginForm = () => {
           setSuccess(true);
           // Load the token to context
           setToken(res.data.token);
-          // Redirect to next dashboard
-          // if (res.data.userType == "doctor")
-          navigate("/doctor-dashboard");
+
+          navigate("/doctor/app");
         }
       })
       .catch((err) => {

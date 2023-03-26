@@ -8,10 +8,7 @@ import Navbar from "./Navbar";
 // App function
 
 function App() {
-  const { verifyUser, loading } = useContext(AuthContext);
-  useEffect(() => {
-    verifyUser();
-  }, [verifyUser]);
+  const { loading } = useContext(AuthContext);
 
   if (loading) {
     return <div id="spinner">Loading...</div>;

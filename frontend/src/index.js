@@ -10,6 +10,7 @@ import Signup from "./pages/Signup";
 import DoctorRegister from "./pages/DoctorRegister";
 import Login from "./pages/Login";
 import AuthContextComponent from "./context/AuthContext";
+import Doctor from "./pages/Doctor";
 
 const router = createBrowserRouter([
   {
@@ -24,16 +25,18 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <Signup />,
       },
-      {
-        path: "/doctor-signup",
-        element: <DoctorRegister />,
-      },
+
       {
         path: "/login",
         element: <Login />,
       },
+
       {
-        path: "/doctor-dashboard",
+        path: "/doctor/signup",
+        element: <DoctorRegister />,
+      },
+      {
+        path: "/doctor/app",
         element: <DoctorDashboard />,
       },
     ],

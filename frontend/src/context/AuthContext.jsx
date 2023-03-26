@@ -8,12 +8,10 @@ const base_uri = "http://localhost:5000";
 
 export default function AuthContextProvider({ children }) {
   const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const verifyUser = useCallback(() => {
-    setLoading(true);
     axios
       .post(
         base_uri + "/users/refresh-token",
@@ -34,14 +32,8 @@ export default function AuthContextProvider({ children }) {
 
         // call refreshToken every 5 minutes to renew the authentication token.
 
-        setTimeout(verifyUser, 1000);
-      })
-      .catch((err) => {
-        if (err.response && err.response.status == 401) {
-          navigate("/login");
-        }
-      })
-      .finally(() => setLoading(false));
+        setTimeout(verifyUser, 5 * 60 * 1000);
+      });
   }, [setToken]);
 
   return (

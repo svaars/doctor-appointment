@@ -6,19 +6,9 @@ import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
   const { token } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   // If token is not available ask the user to login
-  //   if (token) {
-  //     navigate("/doctor-dashboard"); // should be dashboard and let dashboard choose which user depending on the user
-  //   }
-  // }, [token]);
 
   if (token) {
-    setTimeout(() => navigate("/doctor-dashboard"), 1000);
-
-    return <div className="reroute-message">Please logout to access!</div>;
+    return <div className="reroute-message">You are already logged in!</div>;
   } else {
     return (
       <div id="login">
