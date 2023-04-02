@@ -2,8 +2,9 @@ import { Form, Input, TimePicker } from "antd";
 import Modal from "antd/es/modal/Modal";
 import React, { useState } from "react";
 import dayjs from "dayjs";
+import { createSession } from "../../../services/session";
 
-export default function AddSession({ open, onCancel, session, ...rest }) {
+export default function AddSession({ onSessionCreated, editing = false, open, onCancel, session, date, ...rest }) {
   const [editingSession, setEditingSession] = useState(
     session || {
       name: "Session ?",
@@ -13,15 +14,35 @@ export default function AddSession({ open, onCancel, session, ...rest }) {
     }
   );
 
+  const [submitting, setSubmitting] = useState(false);
+
+  const submitHandler =()=>{
+        setSubmitting(true);
+
+        // for creating
+        if(!editing){
+          createSession({name:editingSession.name, date:date, fromTime: editingSession.from, toTime: editingSession.to, maxPatients: editingSession.maxAllowed}).then(session=>{
+            onSessionCreated(session);
+          }).finally(()=>{
+            setSubmitting(false)
+          });
+        }
+      
+  }
+
   return (
     <Modal
+      title={(session?"Edit the":"Create a") + " Session"}
       open={open}
       onCancel={onCancel}
       okText={"Add"}
-      okButtonProps={{ loading: true }}
+      okButtonProps={{loading:submitting}}
       {...rest}
       destroyOnClose
+      onOk={submitHandler}
     >
+      {/* {new Date().toLocaleString('en-us',{month:"long", day:"numeric", year:"numeric"})} */}
+      <p>Session on {date.toLocaleString('en-us',{month:"long", day:"numeric", year:"numeric"})}</p>
       <Form
         labelCol={{
           span: 6,

@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
+const { USERS } = require("../../utils/constants");
 const Schema = mongoose.Schema;
 
 passportLocalMongoose = require("passport-local-mongoose");
 
+// This is authentication session has nothing to do with doctor sessions
 const Session = new Schema({
   refreshToken: {
     type: String,
@@ -89,7 +91,7 @@ const User = new Schema({
   },
   userType: {
     type: String,
-    enum: ["doctor", "user", "admin"],
+    enum: Object.values(USERS),
     default: "user",
     required: true,
   },

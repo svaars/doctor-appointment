@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { createContext, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import WithAxios from "../components/WithAxios";
 
 export const AuthContext = createContext();
 
@@ -38,7 +39,9 @@ export default function AuthContextProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{ token, setToken, verifyUser }}>
-      {children}
+      <WithAxios>
+        {children}
+      </WithAxios>
     </AuthContext.Provider>
   );
 }

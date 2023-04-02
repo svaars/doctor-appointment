@@ -226,7 +226,7 @@ router.post("/refresh-token", (req, res, next) => {
                   RespondError(res, CommonErrors.INTERNAL_ERROR, err);
                 } else {
                   res.cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS);
-                  res.statusCode = 200;
+                  res.statusCode = 201;
                   res.send({ success: true, token });
                 }
               });

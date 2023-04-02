@@ -11,9 +11,9 @@ const CommonErrors = {
   INTERNAL_ERROR: NewError(500, "Internal Error!"),
 };
 
-const RespondError = (res, error, more) => {
+const RespondError = (res, error={code:500, message:"Internal Error"}, more) => {
   const response = {};
-  res.statusCode = error.code || 500;
+  res.statusCode = error?(error.code || 500):500;
   response.message = error.message || "Some error occured!";
   more && (response.more = more);
 

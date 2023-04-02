@@ -40,7 +40,7 @@ export default function DoctorDashboard() {
 
   const [notLoggedIn, setNotLoggedIn] = useState(false);
 
-  const { token, verifyUser } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   const DisplaySelectedContent = () => {
     switch (selected) {
@@ -62,7 +62,7 @@ export default function DoctorDashboard() {
         },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setNotLoggedIn(false);
       })
       .catch((err) => {
@@ -77,7 +77,7 @@ export default function DoctorDashboard() {
   };
 
   useEffect(() => {
-    verifyUser();
+    // verifyUser();
     getUser();
   });
 

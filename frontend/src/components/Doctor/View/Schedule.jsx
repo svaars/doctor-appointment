@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import DatePicker from "../../DatePicker";
 import AddSession from "../Modals/AddSession";
+import { getSession } from "../../../services/session";
 
 const base_uri = process.env.REACT_APP_API_URI;
 export default function Schedule() {
@@ -12,7 +13,6 @@ export default function Schedule() {
 
   const [addingSession, setAddingSession] = useState(false);
 
-  const { token } = useContext(AuthContext);
 
   const onChangeDate = (direction) => {
     direction === "left"
@@ -29,20 +29,28 @@ export default function Schedule() {
     // generate new array of dates to be shown in scroll bar
   };
 
+  const onSessionAdd = (session)=>{
+    setSessions(prev=>{
+      if(!prev){
+        return [session]
+      }
+      return [session, ...prev];
+    })
+    setAddingSession(false)
+  }
+
   useEffect(() => {
-    axios
-      .get(base_uri + "/doctors/sessions", {
-        headers: { Authorization: token },
-        data: { date: selectedDate },
-      })
-      .then((res) => {
-        console.log(res);
-      });
+    getSession().then(res=>{
+      
+        setSessions(res.data.sessions)
+      
+    })
   }, [selectedDate]);
 
   return (
     <div id="schedule-view" style={{ padding: "20px" }}>
-      <AddSession
+      {addingSession&&(<AddSession
+        onSessionCreated={onSessionAdd}
         open={addingSession}
         onCancel={() => {
           setAddingSession(false);
@@ -53,7 +61,9 @@ export default function Schedule() {
           to: new Date().getTime(),
           maxAllowed: 25,
         }}
-      />
+        date={selectedDate}
+        
+      />)}
       <DatePicker date={selectedDate} onChangeDate={onChangeDate} />
       <Card id="sessions">
         <h2>Sessions</h2>
@@ -65,7 +75,11 @@ export default function Schedule() {
         >
           Add session
         </Button>
-        <div id="sessions-list"></div>
+        <div id="sessions-list">
+          {sessions&&sessions.length>0&&sessions.map(session=>{
+            return (<>{JSON.stringify(session)}</>)
+          })}
+        </div>
       </Card>
     </div>
   );

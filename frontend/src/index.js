@@ -11,13 +11,14 @@ import DoctorRegister from "./pages/DoctorRegister";
 import Login from "./pages/Login";
 import AuthContextComponent from "./context/AuthContext";
 import Doctor from "./pages/Doctor";
+import WithAxios from "./components/WithAxios";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <AuthContextComponent>
-        <App />
+          <App />
       </AuthContextComponent>
     ),
     children: [
