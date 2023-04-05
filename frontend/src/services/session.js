@@ -3,7 +3,7 @@ import axios from 'axios'
 const {server_uri} = require("../utils/constants/config")
 
 const getSession = (date)=>{
-    return axios.get(server_uri +  "/sessions",{date}).catch(err=>{
+    return axios.get(server_uri +  "/sessions",{params:{date}}).catch(err=>{
         notification.open({message: 'Error!',
         description:
           'Could not get session! '

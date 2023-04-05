@@ -5,6 +5,8 @@ const { RespondError, CommonErrors } = require("../../utils/responses");
 const { USERS } = require("../../utils/constants");
 const router = express.Router();
 
+const dayjs = require('dayjs');
+
 
 /*
     ENDPOINT : /sessions/
@@ -36,16 +38,20 @@ router.post("/",verifyUser, async (req,res)=>{
 router.get("/", verifyUser, async (req,res)=>{
     try{
         
-        const {date, doctor} = req.body;
-        const {populate = false} = req.query
+        const {date, doctor, populate = false} = req.query;
         const finds = {};
         if(date){
-            finds.date = new Date(date);
+            const _date = dayjs(date).hour(0).minute(0).second(0);
+            const _next_date = _date.add(1,'day');
+            finds.date = {$gte: _date.toDate(), $lte: _next_date.toDate()};
+            // finds.date = 
+            // finds.date = (date);
         }
 
         if(req.user == USERS.doctor || doctor){
             finds.doctor = doctor || req.user._id;
         }
+        // console.log(finds.date);
         const sessions = await Session.find(finds);
         if(populate)
             sessions.populate('doctor');
