@@ -1,13 +1,53 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import DoctorDashboard from "./pages/DoctorDashboard";
+import Signup from "./pages/Signup";
+import DoctorRegister from "./pages/DoctorRegister";
+import Login from "./pages/Login";
+import AuthContextComponent from "./context/AuthContext";
+import Doctor from "./pages/Doctor";
+import WithAxios from "./components/WithAxios";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <AuthContextComponent>
+          <App />
+      </AuthContextComponent>
+    ),
+    children: [
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+
+      {
+        path: "/login",
+        element: <Login />,
+      },
+
+      {
+        path: "/doctor/signup",
+        element: <DoctorRegister />,
+      },
+      {
+        path: "/doctor/app",
+        element: <DoctorDashboard />,
+      },
+    ],
+  },
+]);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

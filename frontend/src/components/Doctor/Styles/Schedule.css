@@ -1,0 +1,27 @@
+#sessions-list{
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.session{
+    display: flex;
+    padding: 18px;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 650px;
+    border: 1px solid  #E1E1E1;
+    border-radius: 4px;
+}
+
+.details, .time, .maxPatients, .bookedPatients{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.session .buttons button{
+    margin-right: 10px;
+}

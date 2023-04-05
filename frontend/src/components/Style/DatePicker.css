@@ -1,0 +1,41 @@
+.date-picker-wrapper{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 32px;
+  width: min-content;
+  border-radius: 8px;
+}
+
+.date-picker-year{
+  margin-bottom: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.date-picker-date {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #E1E1E1;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  .date-picker-scroll {
+    display: flex;
+  }
+  
+  .date-card-wrapper {
+    margin: 8px;
+    text-align: center;
+  }
+  
+  .date-picker-left, .date-picker-right{
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+  }
