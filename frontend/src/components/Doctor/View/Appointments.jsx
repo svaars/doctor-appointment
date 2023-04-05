@@ -1,11 +1,11 @@
 import React from "react";
 
-import "./Style/Appointments.css";
+import "../../Style/Appointments.css";
 
 import Search from "antd/es/transfer/search";
 import { Button, Card } from "antd";
 
-import ProfileImage from "../../ProfileImage";
+import ProfileImage from "../../Common/ProfileImage";
 
 export default function Appointments() {
   return (

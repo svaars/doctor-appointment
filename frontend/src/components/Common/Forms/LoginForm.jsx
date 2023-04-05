@@ -1,7 +1,7 @@
-import "../Style/LoginForm.css";
+import "../../Style/LoginForm.css";
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 import { Alert } from "antd";
 import { useNavigate } from "react-router-dom";
 

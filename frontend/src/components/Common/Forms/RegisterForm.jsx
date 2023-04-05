@@ -1,10 +1,10 @@
-import "../Style/RegisterForm.css";
+import "../../Style/RegisterForm.css";
 import React, { useContext, useState } from "react";
 
 import axios from "axios";
 
 import { Alert } from "antd";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 import { useNavigate } from "react-router";
 
 const base_uri = "http://localhost:5000";

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "./Style/DatePicker.css";
+import React from "react";
+import "../Style/DatePicker.css";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Card } from "antd";
 

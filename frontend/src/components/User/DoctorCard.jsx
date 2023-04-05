@@ -1,4 +1,4 @@
-// import './Style/DoctorCard.css';
+import '../Style/DoctorCard.css';
 import React from "react";
 
 function DoctorCard(props) {

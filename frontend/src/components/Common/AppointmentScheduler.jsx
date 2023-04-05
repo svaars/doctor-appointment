@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import DatePicker from './DatePicker';
 // import TimeSlots from './TimeSlots';
-import "./AppointmentScheduler.css";
+import "../Style/AppointmentScheduler.css";
 
 const AppointmentScheduler = () => {
   const [selectedDate, setSelectedDate] = useState("March 1");
@@ -36,7 +36,7 @@ const AppointmentScheduler = () => {
         </div>
       </div>
       <div className="dateTimeSelectionContainer">
-        <DatePicker onDateSelection={handleDateSelection} />
+        {/* <DatePicker onDateSelection={handleDateSelection} /> */}
         {/* <TimeSlots onTimeSelection={handleTimeSelection} /> */}
       </div>
     </div>

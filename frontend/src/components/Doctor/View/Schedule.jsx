@@ -1,14 +1,13 @@
 import { Button, Card, Spin } from "antd";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../context/AuthContext";
-import DatePicker from "../../DatePicker";
+import DatePicker from "../../Common/DatePicker";
 import AddSession from "../Modals/AddSession";
 import { getSession } from "../../../services/session";
 
 import {ClockCircleOutlined, UserOutlined, UserAddOutlined} from "@ant-design/icons"
 
-import "../Styles/Schedule.css"
+import "../../Style/Schedule.css"
 
 function SessionComponent({session}){
     return(

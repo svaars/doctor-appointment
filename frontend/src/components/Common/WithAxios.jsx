@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react'
-import {AuthContext} from "../context/AuthContext"
+import {AuthContext} from "../../context/AuthContext"
 import axios from 'axios'
-import { server_uri } from '../utils/constants/config';
+import { server_uri } from '../../utils/constants/config';
 
 const WithAxios = ({ children }) => {
     const { token,setToken } = useContext(AuthContext);
