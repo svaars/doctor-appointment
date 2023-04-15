@@ -2,20 +2,32 @@ import axios from "axios";
 import React, { createContext, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import WithAxios from "../components/Common/WithAxios";
+import { server_uri } from "../utils/constants/config";
 
 export const AuthContext = createContext();
 
-const base_uri = "http://localhost:5000";
+
 
 export default function AuthContextProvider({ children }) {
   const [token, setToken] = useState(null);
 
   const navigate = useNavigate();
 
+  const logout = ()=>{
+    axios.get(server_uri+"/users/logout",{withCredentials:true}).then(res=>{
+      if(res.data.success){
+        setToken(null);
+        window.location.reload();
+        navigate("/");
+        
+      }
+    })
+  }
+
   const verifyUser = useCallback(() => {
     axios
       .post(
-        base_uri + "/users/refresh-token",
+        server_uri + "/users/refresh-token",
         {},
         {
           withCredentials: true,
@@ -38,7 +50,7 @@ export default function AuthContextProvider({ children }) {
   }, [setToken]);
 
   return (
-    <AuthContext.Provider value={{ token, setToken, verifyUser }}>
+    <AuthContext.Provider value={{ token, setToken, verifyUser, logout }}>
       <WithAxios>
         {children}
       </WithAxios>

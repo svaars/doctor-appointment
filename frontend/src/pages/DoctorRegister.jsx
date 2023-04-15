@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import DoctorRegisterForm from "../components/Forms/DoctorRegisterForm";
+import DoctorRegisterForm from "../components/Doctor/Forms/DoctorRegisterForm";
 import { AuthContext } from "../context/AuthContext";
 
 export default function DoctorRegister() {

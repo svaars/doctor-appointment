@@ -5,7 +5,9 @@
   "scripts": {
     "frontend": "cd ./frontend/ && npm start",
     "server": "cd ./server/ && npm run dev",
-    "dev": "cd ./frontend/ && npm start && cd ../server/ && npm run dev",
-    "start": "cd ./frontend/ && npm start && cd ../server/ && npm start"
+    "dev": "concurrently \"npm run frontend\" \"npm run server\""
+  },
+  "dependencies": {
+    "concurrently": "^8.0.1"
   }
 }
