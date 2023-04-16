@@ -10,7 +10,11 @@ import Signup from "./pages/Signup";
 import DoctorRegister from "./pages/DoctorRegister";
 import Login from "./pages/Login";
 import AuthContextComponent from "./context/AuthContext";
-import Doctor from "./pages/Doctor";
+import PatientRegister from "./pages/PatientRegister";
+import PatientDashboard from "./pages/PatientDashboard";
+import Home from "./pages/Home";
+
+import PatientHome from "./components/Patient/PatientHome";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +26,10 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        path:"/",
+        element: <Home/>
+      },
+      {
         path: "/signup",
         element: <Signup />,
       },
@@ -29,8 +37,22 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },     
+      {
+        path: "/patient/app",
+        element: <PatientDashboard />,
+        children:[
+          {
+            path: "/patient/app",
+            element: <PatientHome/> ,
+            
+          }
+        ],
       },
-
+      {
+        path: "/patient/signup",
+        element: <PatientRegister />,
+      },
       {
         path: "/doctor/signup",
         element: <DoctorRegister />,

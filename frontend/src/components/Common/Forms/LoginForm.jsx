@@ -51,8 +51,10 @@ const LoginForm = () => {
           setSuccess(true);
           // Load the token to context
           setToken(res.data.token);
-
-          navigate("/doctor/app");
+          if(res.data.userType === "doctor")
+            navigate("/doctor/app");
+          else if(res.data.userType === "patient")
+            navigate("/patient/app");
         }
       })
       .catch((err) => {

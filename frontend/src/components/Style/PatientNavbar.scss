@@ -1,0 +1,65 @@
+nav#patient-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: relative;
+    
+    padding: 8px;
+
+    .left{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        .stack{
+            display: flex;
+            flex-direction: column;
+            #greeting{
+                opacity: 0.4;
+            }
+        }
+    }
+
+    #menu{
+        box-sizing: border-box;
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: white;
+
+        padding: 20px;
+        width: 60%;
+        height: 100vh;
+        z-index: 99;
+        
+
+        ul{
+            
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            margin-top: 20px;
+            margin-left: 40px;
+
+            li{
+                padding: 10px;
+                margin: 0px;
+                a{
+                    text-decoration: none;
+                    color: black;
+                }
+            }
+        }
+    }
+
+    #backdrop{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        opacity: 0.5;
+    }
+}

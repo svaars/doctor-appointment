@@ -13,6 +13,7 @@ import { Layout, Menu, Spin } from "antd";
 import Appointments from "../components/Doctor/View/Appointments";
 import axios from "axios";
 import Schedule from "../components/Doctor/View/Schedule";
+import { server_uri } from "../utils/constants/config";
 const { Content, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -30,7 +31,6 @@ const items = [
   getItem("Records", "records", <UserOutlined />),
 ];
 
-const base_uri = process.env.REACT_APP_API_URI;
 
 export default function DoctorDashboard() {
   const [collapsed, setCollapsed] = useState(false);
@@ -38,7 +38,7 @@ export default function DoctorDashboard() {
 
   const [loading, setLoading] = useState(true);
 
-  const [notLoggedIn, setNotLoggedIn] = useState(false);
+  const [notLoggedIn, setNotLoggedIn] = useState(true);
 
   const { token } = useContext(AuthContext);
 
@@ -55,15 +55,16 @@ export default function DoctorDashboard() {
 
   const getUser = () => {
     axios
-      .get(base_uri + "/users/me", {
+      .get(server_uri + "/users/me", {
         withCredentials: true,
         headers: {
           Authorization: "Bearer " + token,
         },
       })
       .then((res) => {
-        // console.log(res);
-        setNotLoggedIn(false);
+        if(res.data.userType == "doctor"){
+          setNotLoggedIn(false);
+        }
       })
       .catch((err) => {
         // if(err)
@@ -80,6 +81,8 @@ export default function DoctorDashboard() {
     // verifyUser();
     getUser();
   });
+
+  
 
   if (loading) {
     return <Spin />;

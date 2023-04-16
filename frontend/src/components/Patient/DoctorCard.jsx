@@ -1,7 +1,7 @@
-import '../Style/DoctorCard.css';
+import '../Style/DoctorCard.scss';
 import React from "react";
 
-function DoctorCard(props) {
+export default function DoctorCard(props) {
   return (
     <div className="doctor-card">
       <div className="doctor-image-container">
@@ -23,4 +23,3 @@ function DoctorCard(props) {
   );
 }
 
-export default DoctorCard;

@@ -17,9 +17,10 @@ export default function AuthContextProvider({ children }) {
     axios.get(server_uri+"/users/logout",{withCredentials:true}).then(res=>{
       if(res.data.success){
         setToken(null);
-        window.location.reload();
         navigate("/");
-        
+
+        window.location.reload();
+
       }
     })
   }

@@ -7,7 +7,6 @@ const WithAxios = ({ children }) => {
     const { token,setToken } = useContext(AuthContext);
 
     useEffect(() => {
-        console.log(token)
         axios.interceptors.request.use(config=>{
             if(token){
                 config.headers['Authorization'] = 'Bearer '+token;

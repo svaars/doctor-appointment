@@ -5,8 +5,8 @@ import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
 import { useForm } from "antd/es/form/Form";
 import { useNavigate } from "react-router-dom";
+import { server_uri } from "../../../utils/constants/config";
 
-const base_uri = "http://localhost:5000";
 
 export default function DoctorRegisterForm() {
   const [form] = useForm();
@@ -24,7 +24,7 @@ export default function DoctorRegisterForm() {
     // console.log(data);
 
     axios
-      .post(base_uri + "/users/signup", data, { withCredentials: true })
+      .post(server_uri + "/users/signup", data, { withCredentials: true })
       .then((res) => {
         if (res.status === 200) {
           // Register success

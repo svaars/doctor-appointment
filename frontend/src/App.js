@@ -16,7 +16,6 @@ function App() {
 
   return (
     <div id="App">
-      <Navbar />
       <Outlet />
     </div>
   );
