@@ -29,7 +29,7 @@ export default function PatientHome() {
         {FAST_SEARCH_OPTIONS.map((opt)=><FastSearchBoxCard color={opt.color} label={opt.label}/>)}
       </div>
       <UpcomingAppointments/>
-      <div id="previous-appoinments">Previous appointments</div>
+      {/* <div id="previous-appoinments">Previous appointments</div> */}
     </section>
   )
 }
