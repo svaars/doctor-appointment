@@ -2,6 +2,18 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 
+const Appointment = new Schema({
+  user:{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "User",
+    required: true
+  },
+  tokenNo:{
+    type: mongoose.SchemaTypes.Number,
+    required: true
+  }
+});
+
 const Session = new Schema({
   name:{
     type:String,
@@ -32,7 +44,9 @@ const Session = new Schema({
   maxPatients: {
     type: mongoose.SchemaTypes.Number,
     required: true
-  }
+  },
+
+  appointments: [Appointment]
 });
 
 

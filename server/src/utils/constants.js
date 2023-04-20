@@ -1,6 +1,6 @@
 const USERS = {
     doctor: "doctor",
-    user: "user",
+    patient: "patient",
     admin: "admin"
 }
 

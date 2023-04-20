@@ -92,7 +92,7 @@ const User = new Schema({
   userType: {
     type: String,
     enum: Object.values(USERS),
-    default: "user",
+    default: "patient",
     required: true,
   },
   generalData: {
