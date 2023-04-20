@@ -4,12 +4,11 @@ import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
 import { Alert } from "antd";
 import { useNavigate } from "react-router-dom";
+import { server_uri } from "../../../utils/constants/config";
 
-const base_uri = process.env.REACT_APP_API_URI;
 
 const LoginForm = () => {
   const navigate = useNavigate();
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -34,14 +33,13 @@ const LoginForm = () => {
     setIsSubmitting(false);
 
     setErrorMessage(null);
-
     // Todo: Validation
     const data = {
       username,
       password,
     };
     axios
-      .post(base_uri + "/users/login", data, { withCredentials: true })
+      .post(server_uri + "/users/login", data, { withCredentials: true })
       .then((res) => {
         setIsSubmitting(false);
         if (res.status === 200) {
