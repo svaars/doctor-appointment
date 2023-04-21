@@ -15,7 +15,6 @@ const {
 } = require("../../auth/authenticate");
 const { ExtractJwt } = require("passport-jwt");
 const { CommonErrors, RespondError } = require("../../utils/responses");
-const { CompleteSignup } = require("../controller");
 const { USERS } = require("../../utils/constants");
 
 /*
@@ -126,7 +125,7 @@ router.post("/signup", (req, res) => {
         }
       );
     }
-  }else if(userType == USERS.patient){
+  } else if (userType == USERS.patient) {
     const {
       firstname,
       lastname,
@@ -136,7 +135,6 @@ router.post("/signup", (req, res) => {
       phoneNumber,
       dob,
       gender,
-      
     } = req.body;
 
     if (
@@ -236,7 +234,7 @@ router.post(
             RespondError(res, CommonErrors.INTERNAL_ERROR, err);
           } else {
             res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
-              res.send({ success: true, token, userType: user.userType });
+            res.send({ success: true, token, userType: user.userType });
           }
         });
       },
