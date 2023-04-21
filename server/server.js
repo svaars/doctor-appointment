@@ -14,6 +14,7 @@ require("./src/utils/database/connectDb");
 // Routes
 const userRoute = require("./src/user/routes");
 const sessionRoute = require("./src/session/routes");
+const doctorRoute = require("./src/doctor/routes");
 
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -47,6 +48,7 @@ app.use(cors(corsOption));
 app.use(passport.initialize());
 app.use("/users", userRoute);
 app.use("/sessions", sessionRoute);
+app.use("/doctors", doctorRoute);
 
 //#region Server listening Setup
 // Setting up server

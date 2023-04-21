@@ -1,27 +1,29 @@
-nav#patient-nav{
+nav#patient-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     position: relative;
-    
+
     padding: 8px;
 
-    .left{
+    .left {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 8px;
-        .stack{
+
+        .stack {
             display: flex;
             flex-direction: column;
-            #greeting{
+
+            #greeting {
                 opacity: 0.4;
             }
         }
     }
 
-    #menu{
+    #menu {
         box-sizing: border-box;
         position: absolute;
         right: 0;
@@ -32,20 +34,21 @@ nav#patient-nav{
         width: 60%;
         height: 100vh;
         z-index: 99;
-        
 
-        ul{
-            
+
+        ul {
+
             list-style: none;
             padding: 0px;
             margin: 0px;
             margin-top: 20px;
             margin-left: 40px;
 
-            li{
+            li {
                 padding: 10px;
                 margin: 0px;
-                a{
+
+                a {
                     text-decoration: none;
                     color: black;
                 }
@@ -53,7 +56,7 @@ nav#patient-nav{
         }
     }
 
-    #backdrop{
+    #backdrop {
         position: absolute;
         top: 0;
         left: 0;
@@ -61,5 +64,7 @@ nav#patient-nav{
         height: 100vh;
         background-color: black;
         opacity: 0.5;
+        z-index: 98;
+
     }
 }

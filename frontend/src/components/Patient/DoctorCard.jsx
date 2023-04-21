@@ -1,25 +1,43 @@
-import '../Style/DoctorCard.scss';
+import { Button } from "antd";
+import "../Style/DoctorCard.scss";
 import React from "react";
+import { EnvironmentFilled } from "@ant-design/icons";
 
-export default function DoctorCard(props) {
-  return (
-    <div className="doctor-card">
-      <div className="doctor-image-container">
-        <img src={props.image} alt={props.name} className="doctor-image" />
-      </div>
-      <div className="doctor-details">
-        <h2 className="doctor-name">{props.name}</h2>
-        <div className="doctor-ratings">
-          <span className="doctor-stars">{props.rating}</span>
-          <span className="doctor-approval">{props.approval}% approval</span>
+import ProfileImage from "../Common/ProfileImage";
+
+export default function DoctorCard({ doctor }) {
+  if (!doctor) {
+    return <></>;
+  } else {
+    return (
+      <div className="doctor-card">
+        <div className="header">
+          <ProfileImage />
+
+          <div className="text">
+            <div className="doctor-name">
+              Dr. {doctor.firstname} {doctor.lastname}
+            </div>
+            <div className="doctor-speciality">
+              {doctor.doctorData.specialization}
+            </div>
+          </div>
         </div>
-        <div className="doctor-experience">
-          {props.yearsOfExperience} years of experience
+        <div className="doctor-details">
+          <div className="clinic-address">
+            <span className="icon">
+              <EnvironmentFilled />
+            </span>
+            <span>
+              {doctor.doctorData.clinic.clinicName},{" "}
+              {doctor.doctorData.clinic.street}, {doctor.doctorData.clinic.city}
+              , {doctor.doctorData.clinic.state},{" "}
+              {doctor.doctorData.clinic.pincode}
+            </span>
+          </div>
         </div>
-        <div className="doctor-location">{props.location}</div>
-        {/* <button className="book-button">Book now</button> */}
+        <Button type="primary">Book</Button>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
