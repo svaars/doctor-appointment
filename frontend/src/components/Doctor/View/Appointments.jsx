@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "../../Style/Appointments.css";
 
@@ -6,12 +6,32 @@ import Search from "antd/es/transfer/search";
 import { Button, Card } from "antd";
 
 import ProfileImage from "../../Common/ProfileImage";
+import { getSession } from "../../../services/session";
 
 export default function Appointments() {
+  const [sessions, setSessions] = useState(null);
+
+  useEffect(() => {
+    getSession(new Date(), { doctor: false, appointments: true }).then(
+      (res) => {
+        if (res.status === 200) {
+          console.log(res.data.sessions);
+          setSessions(res.data.sessions);
+        }
+      }
+    );
+  }, []);
   return (
     <div id="appointments">
       <Card className="appointment-head-card">
-        <h3>Today, you have 18 Bookings across 4 different sessions</h3>
+        <h3>
+          Today, you have{" "}
+          {sessions &&
+            sessions
+              .map((s) => s.appointments.length)
+              .reduce((a, b) => a + b)}{" "}
+          Bookings across {sessions && sessions.length} different sessions
+        </h3>
       </Card>
       <div className="search">
         <Search />
@@ -19,22 +39,25 @@ export default function Appointments() {
 
       <div className="sessions-list">
         {/* Session Card */}
-        <SessionCard />
-        <SessionCard />
-        <SessionCard />
+        {sessions &&
+          sessions.map((session, idx) => {
+            return <SessionCard key={idx} session={session} />;
+          })}
       </div>
     </div>
   );
 }
 
-function SessionUserCard() {
+function SessionUserCard({ appointment }) {
   return (
     <div className="session-user-card">
       <div className="profile-details">
         <ProfileImage />
         <div className="group">
-          <div className="user-name">John Doe</div>
-          <div className="token-no">Token #1</div>
+          <div className="user-name">
+            {appointment.user.firstname} {appointment.user.lastname}
+          </div>
+          <div className="token-no">Token #{appointment.tokenNo}</div>
         </div>
       </div>
       <div className="action-buttons">
@@ -45,18 +68,18 @@ function SessionUserCard() {
   );
 }
 
-function SessionCard() {
+function SessionCard({ session }) {
   return (
     <div className="session-card">
       <Card>
         <div className="session-header">
-          <div className="session-title">Session #1</div>
-          <Button danger>Cancel</Button>
+          <div className="session-title">{session.name}</div>
         </div>
         <div className="session-user-list">
-          <SessionUserCard />
-          <SessionUserCard />
-          <SessionUserCard />
+          {session.appointments.map((appointment, idx) => {
+            return <SessionUserCard key={idx} appointment={appointment} />;
+          })}
+          {session.appointments.length === 0 && <>No appointments yet!</>}
         </div>
       </Card>
     </div>

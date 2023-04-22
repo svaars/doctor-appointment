@@ -1,0 +1,19 @@
+#doctor-dashboard {
+    .doctor-profile-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        padding: 20px;
+
+
+        &.collapsed {
+
+            #username,
+            #specialization {
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+.login-form {
+  background-color: #F6F6F6;
+  padding: 24px;
+  max-width: 300px;
+  border-radius: 8px;
+  margin: auto;
+  margin-top: 40px;
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    input {
+      border: 1px solid #CECECE;
+      min-height: 2.5em;
+      padding: 0px 4px;
+      border-radius: 2px;
+    }
+  }
+}

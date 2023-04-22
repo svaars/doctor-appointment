@@ -5,41 +5,50 @@ import DatePicker from "../../Common/DatePicker";
 import AddSession from "../Modals/AddSession";
 import { getSession } from "../../../services/session";
 
-import {ClockCircleOutlined, UserOutlined, UserAddOutlined} from "@ant-design/icons"
+import {
+  ClockCircleOutlined,
+  UserOutlined,
+  UserAddOutlined,
+} from "@ant-design/icons";
 
-import "../../Style/Schedule.css"
+import "../../Style/Schedule.css";
 
-function SessionComponent({session}){
-    return(
-      <div className="session">
-        <div className="name">{session.name}</div>
-        <div className="details">
-          <div className="time">
-            <ClockCircleOutlined/>
-            <div className="from">{new Date(session.fromTime).toLocaleString("en-us",{hour:"numeric", minute:"numeric",})}</div>-
-            <div className="to">{new Date(session.toTime).toLocaleString("en-us",{hour:"numeric", minute:"numeric",})}</div>
-            
-
+function SessionComponent({ session }) {
+  return (
+    <div className="session">
+      <div className="name">{session.name}</div>
+      <div className="details">
+        <div className="time">
+          <ClockCircleOutlined />
+          <div className="from">
+            {new Date(session.fromTime).toLocaleString("en-us", {
+              hour: "numeric",
+              minute: "numeric",
+            })}
           </div>
-          <div className="maxPatients">
-            <UserOutlined/>
-            <div className="number">
-              {session.maxPatients}
-            </div>
-          </div>
-          <div className="bookedPatients">
-            <UserAddOutlined/>
-            <div className="number">
-              {session.booked || 0}
-            </div>
+          -
+          <div className="to">
+            {new Date(session.toTime).toLocaleString("en-us", {
+              hour: "numeric",
+              minute: "numeric",
+            })}
           </div>
         </div>
-        <div className="buttons">
-          <Button>Edit</Button>
-          <Button danger>Cancel</Button>
+        <div className="maxPatients">
+          <UserOutlined />
+          <div className="number">{session.maxPatients}</div>
+        </div>
+        <div className="bookedPatients">
+          <UserAddOutlined />
+          <div className="number">{session.appointments.length || 0}</div>
         </div>
       </div>
-    )
+      <div className="buttons">
+        <Button>Edit</Button>
+        <Button danger>Cancel</Button>
+      </div>
+    </div>
+  );
 }
 
 export default function Schedule() {
@@ -48,7 +57,6 @@ export default function Schedule() {
 
   const [addingSession, setAddingSession] = useState(false);
   const [loadingSession, setLoadingSession] = useState(false);
-
 
   const onChangeDate = (direction) => {
     direction === "left"
@@ -65,42 +73,43 @@ export default function Schedule() {
     // generate new array of dates to be shown in scroll bar
   };
 
-  const onSessionAdd = (session)=>{
-    setSessions(prev=>{
-      if(!prev){
-        return [session]
+  const onSessionAdd = (session) => {
+    setSessions((prev) => {
+      if (!prev) {
+        return [session];
       }
       return [session, ...prev];
-    })
-    setAddingSession(false)
-  }
+    });
+    setAddingSession(false);
+  };
 
   useEffect(() => {
     setLoadingSession(true);
-    getSession(selectedDate).then(res=>{
-      
-        setSessions(res.data.sessions)
-      
-    }).finally(()=>setLoadingSession(false))
+    getSession(selectedDate)
+      .then((res) => {
+        setSessions(res.data.sessions);
+      })
+      .finally(() => setLoadingSession(false));
   }, [selectedDate]);
 
   return (
     <div id="schedule-view" style={{ padding: "20px" }}>
-      {addingSession&&(<AddSession
-        onSessionCreated={onSessionAdd}
-        open={addingSession}
-        onCancel={() => {
-          setAddingSession(false);
-        }}
-        session={{
-          name: "Old A",
-          from: new Date().getTime(),
-          to: new Date().getTime(),
-          maxAllowed: 25,
-        }}
-        date={selectedDate}
-        
-      />)}
+      {addingSession && (
+        <AddSession
+          onSessionCreated={onSessionAdd}
+          open={addingSession}
+          onCancel={() => {
+            setAddingSession(false);
+          }}
+          session={{
+            name: "Old A",
+            from: new Date().getTime(),
+            to: new Date().getTime(),
+            maxAllowed: 25,
+          }}
+          date={selectedDate}
+        />
+      )}
       <DatePicker date={selectedDate} onChangeDate={onChangeDate} />
       <Card id="sessions">
         <h2>Sessions</h2>
@@ -112,11 +121,20 @@ export default function Schedule() {
         >
           Add session
         </Button>
-        {loadingSession?(<Spin spinning/>):(<div id="sessions-list">
-          {sessions&&sessions.length>0&&sessions.map(session=>{
-            return <SessionComponent session={session}/>
-          })}
-        </div>)}
+        {loadingSession ? (
+          <Spin spinning />
+        ) : (
+          <div id="sessions-list">
+            {sessions &&
+              sessions.length > 0 &&
+              sessions.map((session) => {
+                return <SessionComponent session={session} />;
+              })}
+            {sessions && sessions.length === 0 && (
+              <>No sessions scheduled yet!</>
+            )}
+          </div>
+        )}
       </Card>
     </div>
   );
