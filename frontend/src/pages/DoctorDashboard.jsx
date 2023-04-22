@@ -1,25 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { AuthContext } from "../context/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   FileOutlined,
   UserOutlined,
   HomeOutlined,
   ScheduleOutlined,
-  LogoutOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Spin } from "antd";
 import Appointments from "../components/Doctor/View/Appointments";
 import axios from "axios";
 import Schedule from "../components/Doctor/View/Schedule";
 import { server_uri } from "../utils/constants/config";
-import ProfileImage from "../components/Common/ProfileImage";
-import "./Style/DoctorDashboard.scss";
-
 const { Content, Sider } = Layout;
-
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -33,20 +28,19 @@ const items = [
   getItem("Appointments", "appointments", <HomeOutlined />),
   getItem("Schedule", "schedule", <ScheduleOutlined />),
   getItem("Reports", "reports", <FileOutlined />),
-  getItem("Clinical notes", "clinical-notes", <UserOutlined />),
-  getItem("Logout", "logout", <LogoutOutlined />),
+  getItem("Records", "records", <UserOutlined />),
 ];
+
 
 export default function DoctorDashboard() {
   const [collapsed, setCollapsed] = useState(false);
   const [selected, setSelected] = useState("appointments");
 
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
 
-  const [notLoggedIn, setNotLoggedIn] = useState(false);
+  const [notLoggedIn, setNotLoggedIn] = useState(true);
 
-  const { token, logout } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   const DisplaySelectedContent = () => {
     switch (selected) {
@@ -54,9 +48,6 @@ export default function DoctorDashboard() {
         return <Appointments />;
       case "schedule":
         return <Schedule />;
-      case "logout":
-        logout();
-        break;
       default:
         return <>Todo</>;
     }
@@ -66,11 +57,13 @@ export default function DoctorDashboard() {
     axios
       .get(server_uri + "/users/me", {
         withCredentials: true,
+        headers: {
+          Authorization: "Bearer " + token,
+        },
       })
       .then((res) => {
-        if (res.data.userType == "doctor") {
+        if(res.data.userType == "doctor"){
           setNotLoggedIn(false);
-          setUser(res.data);
         }
       })
       .catch((err) => {
@@ -85,12 +78,17 @@ export default function DoctorDashboard() {
   };
 
   useEffect(() => {
+    // verifyUser();
     getUser();
-  }, []);
+  });
+
+  
 
   if (loading) {
     return <Spin />;
-  } else if (notLoggedIn) {
+  }
+
+  if (notLoggedIn) {
     return <>Unauthorized</>;
   }
 
@@ -100,7 +98,6 @@ export default function DoctorDashboard() {
         minHeight: "100vh",
       }}
       hasSider
-      id="doctor-dashboard"
     >
       <Sider
         collapsible
@@ -108,15 +105,6 @@ export default function DoctorDashboard() {
         onCollapse={(value) => setCollapsed(value)}
         theme="light"
       >
-        <div
-          className={`doctor-profile-details ${collapsed ? "collapsed" : ""}`}
-        >
-          <ProfileImage />
-          <div id="username">
-            Dr. {user.firstname} {user.lastname}
-          </div>
-          <div id="specialization">{user.doctorData.specialization}</div>
-        </div>
         <Menu
           theme="light"
           defaultSelectedKeys={["appointments"]}

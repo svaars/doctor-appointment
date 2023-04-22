@@ -4,10 +4,8 @@ import React from "react";
 import { EnvironmentFilled } from "@ant-design/icons";
 
 import ProfileImage from "../Common/ProfileImage";
-import { useNavigate } from "react-router-dom";
 
-export default function DoctorCard({ doctor, hideBooking = false }) {
-  const navigator = useNavigate();
+export default function DoctorCard({ doctor }) {
   if (!doctor) {
     return <></>;
   } else {
@@ -38,16 +36,7 @@ export default function DoctorCard({ doctor, hideBooking = false }) {
             </span>
           </div>
         </div>
-        {!hideBooking && (
-          <Button
-            type="primary"
-            onClick={() => {
-              navigator(`/patient/app/book/${doctor._id}`);
-            }}
-          >
-            Book
-          </Button>
-        )}
+        <Button type="primary">Book</Button>
       </div>
     );
   }

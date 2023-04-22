@@ -16,7 +16,6 @@ import Home from "./pages/Home";
 
 import PatientHome from "./components/Patient/PatientHome";
 import PatientSearch from "./components/Patient/PatientSearch";
-import PatientBooking from "./pages/PatientBooking";
 
 const router = createBrowserRouter([
   {
@@ -51,10 +50,6 @@ const router = createBrowserRouter([
           {
             path: "/patient/app/search",
             element: <PatientSearch />,
-          },
-          {
-            path: "/patient/app/book/:id",
-            element: <PatientBooking />,
           },
         ],
       },

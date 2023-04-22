@@ -1,11 +1,11 @@
+import "../../Style/LoginForm.css";
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
-import { Alert, Button } from "antd";
+import { Alert } from "antd";
 import { useNavigate } from "react-router-dom";
 import { server_uri } from "../../../utils/constants/config";
 
-import "../../Style/LoginForm.scss";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -49,24 +49,21 @@ const LoginForm = () => {
           setSuccess(true);
           // Load the token to context
           setToken(res.data.token);
-          if (res.data.userType === "doctor") navigate("/doctor/app");
-          else if (res.data.userType === "patient") navigate("/patient/app");
+          if(res.data.userType === "doctor")
+            navigate("/doctor/app");
+          else if(res.data.userType === "patient")
+            navigate("/patient/app");
         }
       })
       .catch((err) => {
         setIsSubmitting(false);
         setSuccess(false);
         if (err.response) {
-          console.log(err);
-          if (err.response.status == 401) {
-            setErrorMessage("Wrong username or password!");
+          const data = err.response.data;
+          if (data.more.message) {
+            setErrorMessage(data.more.message);
           } else {
-            const data = err.response.data;
-            if (data.more && data.more.message) {
-              setErrorMessage(data.more.message);
-            } else {
-              setErrorMessage("Unknown");
-            }
+            setErrorMessage("Unknown");
           }
         } else {
           setErrorMessage("Unknown");
@@ -77,6 +74,7 @@ const LoginForm = () => {
   return (
     <div className="login-form">
       <h2 className="form-heading">Login</h2>
+      {/* {JSON.stringify(process.env)} */}
       <form onSubmit={handleSubmit}>
         {success && (
           <Alert
@@ -98,7 +96,9 @@ const LoginForm = () => {
         <div className="form-field">
           <label htmlFor="username">
             Username
-            <span className="required">*</span>
+            <span className="star" style={{ color: "red" }}>
+              *
+            </span>
           </label>
           <input
             placeholder="Enter Your Username"
@@ -113,7 +113,9 @@ const LoginForm = () => {
         <div className="form-field">
           <label htmlFor="username">
             Password
-            <span className="required">*</span>
+            <span className="star2" style={{ color: "red" }}>
+              *
+            </span>
           </label>
           <input
             placeholder="Enter Your Password"
@@ -126,16 +128,22 @@ const LoginForm = () => {
           />
         </div>
         <div className="form-field">
-          <Button type="primary" htmlType="submit" disabled={isSubmitting}>
+          <button
+            type="submit"
+            className="login-button"
+            disabled={isSubmitting}
+          >
             Login
-          </Button>
-          <Button>Signup</Button>
+          </button>
+          <button type="submit" className="signup-button">
+            Signup
+          </button>
         </div>
-        {/* <div className="form-field">
+        <div className="form-field">
           <a href="#" className="forgot-password-link">
             Forgot your password?
           </a>
-        </div> */}
+        </div>
       </form>
     </div>
   );
