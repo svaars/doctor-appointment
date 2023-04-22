@@ -15,7 +15,11 @@ import Appointments from "../components/Doctor/View/Appointments";
 import axios from "axios";
 import Schedule from "../components/Doctor/View/Schedule";
 import { server_uri } from "../utils/constants/config";
+import ProfileImage from "../components/Common/ProfileImage";
+import "./Style/DoctorDashboard.scss";
+
 const { Content, Sider } = Layout;
+
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -29,7 +33,7 @@ const items = [
   getItem("Appointments", "appointments", <HomeOutlined />),
   getItem("Schedule", "schedule", <ScheduleOutlined />),
   getItem("Reports", "reports", <FileOutlined />),
-  getItem("Records", "records", <UserOutlined />),
+  getItem("Clinical notes", "clinical-notes", <UserOutlined />),
   getItem("Logout", "logout", <LogoutOutlined />),
 ];
 
@@ -38,8 +42,9 @@ export default function DoctorDashboard() {
   const [selected, setSelected] = useState("appointments");
 
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
-  const [notLoggedIn, setNotLoggedIn] = useState(true);
+  const [notLoggedIn, setNotLoggedIn] = useState(false);
 
   const { token, logout } = useContext(AuthContext);
 
@@ -61,13 +66,11 @@ export default function DoctorDashboard() {
     axios
       .get(server_uri + "/users/me", {
         withCredentials: true,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       })
       .then((res) => {
         if (res.data.userType == "doctor") {
           setNotLoggedIn(false);
+          setUser(res.data);
         }
       })
       .catch((err) => {
@@ -82,15 +85,12 @@ export default function DoctorDashboard() {
   };
 
   useEffect(() => {
-    // verifyUser();
     getUser();
-  });
+  }, []);
 
   if (loading) {
     return <Spin />;
-  }
-
-  if (notLoggedIn) {
+  } else if (notLoggedIn) {
     return <>Unauthorized</>;
   }
 
@@ -100,6 +100,7 @@ export default function DoctorDashboard() {
         minHeight: "100vh",
       }}
       hasSider
+      id="doctor-dashboard"
     >
       <Sider
         collapsible
@@ -107,6 +108,15 @@ export default function DoctorDashboard() {
         onCollapse={(value) => setCollapsed(value)}
         theme="light"
       >
+        <div
+          className={`doctor-profile-details ${collapsed ? "collapsed" : ""}`}
+        >
+          <ProfileImage />
+          <div id="username">
+            Dr. {user.firstname} {user.lastname}
+          </div>
+          <div id="specialization">{user.doctorData.specialization}</div>
+        </div>
         <Menu
           theme="light"
           defaultSelectedKeys={["appointments"]}

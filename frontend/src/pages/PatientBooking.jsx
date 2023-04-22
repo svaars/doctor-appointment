@@ -7,7 +7,7 @@ import { GetDoctor, GetSessions } from "../services/doctor";
 import "./Style/PatientBooking.scss";
 
 import dayjs from "dayjs";
-import { Button, Card, DatePicker, notification } from "antd";
+import { Button, Card, DatePicker } from "antd";
 import { bookSession } from "../services/session";
 
 export default function PatientBooking() {
@@ -44,7 +44,6 @@ export default function PatientBooking() {
 
   useEffect(() => {
     GetSessions(params.id, date.toDate()).then((res) => {
-      console.log(res);
       setSelectedSession(null);
       setSessions(res);
     });
@@ -106,7 +105,7 @@ const SessionSelector = ({ sessions, onSelectHandler }) => {
             <div
               key={i}
               className={
-                "session-time-button" + (selected == ses._id ? " active" : "")
+                "session-time-button" + (selected === ses._id ? " active" : "")
               }
               onClick={() => {
                 setSelected(ses._id);
@@ -118,7 +117,7 @@ const SessionSelector = ({ sessions, onSelectHandler }) => {
             </div>
           );
         })}
-      {!sessions || (sessions.length == 0 && <>No sessions available!</>)}
+      {!sessions || (sessions.length === 0 && <>No sessions available!</>)}
     </div>
   );
 };

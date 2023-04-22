@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { server_uri } from "../utils/constants/config";
 import axios from "axios";
-import { AuthContext } from "../context/AuthContext";
 import { Spin } from "antd";
 import PatientNavbar from "../components/Patient/PatientNavbar";
 
@@ -18,6 +17,7 @@ export default function PatientDashboard() {
     axios
       .get(server_uri + "/users/me")
       .then((res) => {
+        // eslint-disable-next-line eqeqeq
         if (res.data.userType == "patient") {
           setNotLoggedIn(false);
           setUser(res.data);

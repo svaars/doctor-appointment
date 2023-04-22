@@ -49,12 +49,16 @@ router.post("/", verifyUser, async (req, res) => {
 /*
     *GET ALL SESSIONS*
     ENDPOINT : /sessions/
-    QUERY: { date, doctor, populate}
+    QUERY: { date, doctor, populate:{doctor: Boolean, appointments: Boolean}}
     RETURN: { sessions:[{object}]}
 */
 router.get("/", verifyUser, async (req, res) => {
   try {
-    const { date, doctor, populate = false } = req.query;
+    const {
+      date,
+      doctor,
+      populate = { doctor: false, appointments: false },
+    } = req.query;
     const finds = {};
     if (date) {
       const _date = dayjs(date).hour(0).minute(0).second(0);
@@ -67,9 +71,11 @@ router.get("/", verifyUser, async (req, res) => {
     if (req.user.userType == USERS.doctor || doctor) {
       finds.doctor = doctor || req.user._id;
     }
-    // console.log(finds.date);
-    const sessions = await Session.find(finds);
-    if (populate) sessions.populate("doctor");
+    const populates = [];
+    if (populate.doctor == "true") populates.push("doctor");
+    if (populate.appointments == "true") populates.push("appointments.user");
+
+    const sessions = await Session.find(finds).populate(populates);
 
     res.status(200).send({ sessions });
   } catch (err) {
