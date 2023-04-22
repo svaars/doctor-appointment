@@ -2,10 +2,9 @@ import "../../Style/LoginForm.css";
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
-import { Alert } from "antd";
+import { Alert, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { server_uri } from "../../../utils/constants/config";
-
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -49,10 +48,8 @@ const LoginForm = () => {
           setSuccess(true);
           // Load the token to context
           setToken(res.data.token);
-          if(res.data.userType === "doctor")
-            navigate("/doctor/app");
-          else if(res.data.userType === "patient")
-            navigate("/patient/app");
+          if (res.data.userType === "doctor") navigate("/doctor/app");
+          else if (res.data.userType === "patient") navigate("/patient/app");
         }
       })
       .catch((err) => {
@@ -74,7 +71,6 @@ const LoginForm = () => {
   return (
     <div className="login-form">
       <h2 className="form-heading">Login</h2>
-      {/* {JSON.stringify(process.env)} */}
       <form onSubmit={handleSubmit}>
         {success && (
           <Alert
@@ -128,22 +124,16 @@ const LoginForm = () => {
           />
         </div>
         <div className="form-field">
-          <button
-            type="submit"
-            className="login-button"
-            disabled={isSubmitting}
-          >
+          <Button type="primary" htmlType="submit" disabled={isSubmitting}>
             Login
-          </button>
-          <button type="submit" className="signup-button">
-            Signup
-          </button>
+          </Button>
+          <Button>Signup</Button>
         </div>
-        <div className="form-field">
+        {/* <div className="form-field">
           <a href="#" className="forgot-password-link">
             Forgot your password?
           </a>
-        </div>
+        </div> */}
       </form>
     </div>
   );
