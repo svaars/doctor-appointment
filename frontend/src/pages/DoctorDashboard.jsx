@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import {
   FileOutlined,
   UserOutlined,
   HomeOutlined,
   ScheduleOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Spin } from "antd";
 import Appointments from "../components/Doctor/View/Appointments";
@@ -29,8 +30,8 @@ const items = [
   getItem("Schedule", "schedule", <ScheduleOutlined />),
   getItem("Reports", "reports", <FileOutlined />),
   getItem("Records", "records", <UserOutlined />),
+  getItem("Logout", "logout", <LogoutOutlined />),
 ];
-
 
 export default function DoctorDashboard() {
   const [collapsed, setCollapsed] = useState(false);
@@ -40,7 +41,7 @@ export default function DoctorDashboard() {
 
   const [notLoggedIn, setNotLoggedIn] = useState(true);
 
-  const { token } = useContext(AuthContext);
+  const { token, logout } = useContext(AuthContext);
 
   const DisplaySelectedContent = () => {
     switch (selected) {
@@ -48,6 +49,9 @@ export default function DoctorDashboard() {
         return <Appointments />;
       case "schedule":
         return <Schedule />;
+      case "logout":
+        logout();
+        break;
       default:
         return <>Todo</>;
     }
@@ -62,7 +66,7 @@ export default function DoctorDashboard() {
         },
       })
       .then((res) => {
-        if(res.data.userType == "doctor"){
+        if (res.data.userType == "doctor") {
           setNotLoggedIn(false);
         }
       })
@@ -81,8 +85,6 @@ export default function DoctorDashboard() {
     // verifyUser();
     getUser();
   });
-
-  
 
   if (loading) {
     return <Spin />;

@@ -1,10 +1,11 @@
-import "../../Style/LoginForm.css";
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
 import { Alert, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { server_uri } from "../../../utils/constants/config";
+
+import "../../Style/LoginForm.scss";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -56,11 +57,16 @@ const LoginForm = () => {
         setIsSubmitting(false);
         setSuccess(false);
         if (err.response) {
-          const data = err.response.data;
-          if (data.more.message) {
-            setErrorMessage(data.more.message);
+          console.log(err);
+          if (err.response.status == 401) {
+            setErrorMessage("Wrong username or password!");
           } else {
-            setErrorMessage("Unknown");
+            const data = err.response.data;
+            if (data.more && data.more.message) {
+              setErrorMessage(data.more.message);
+            } else {
+              setErrorMessage("Unknown");
+            }
           }
         } else {
           setErrorMessage("Unknown");
@@ -92,9 +98,7 @@ const LoginForm = () => {
         <div className="form-field">
           <label htmlFor="username">
             Username
-            <span className="star" style={{ color: "red" }}>
-              *
-            </span>
+            <span className="required">*</span>
           </label>
           <input
             placeholder="Enter Your Username"
@@ -109,9 +113,7 @@ const LoginForm = () => {
         <div className="form-field">
           <label htmlFor="username">
             Password
-            <span className="star2" style={{ color: "red" }}>
-              *
-            </span>
+            <span className="required">*</span>
           </label>
           <input
             placeholder="Enter Your Password"
