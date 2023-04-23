@@ -40,6 +40,7 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+
       {
         path: "/patient/app",
         element: <PatientDashboard />,
