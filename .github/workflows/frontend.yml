@@ -6,8 +6,12 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - frontend/**
   pull_request:
     branches: [ "main" ]
+    paths:
+      - frontend/**
 env:
   CI: false
 jobs:
@@ -27,9 +31,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: |
+    - name: Build 🛠
+      run: |
         cd frontend
         npm ci
         npm run build --if-present
         echo "npm run test --if-present"
-        ls -a
+        cd ..
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: frontend/build
+        
