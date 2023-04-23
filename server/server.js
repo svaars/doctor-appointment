@@ -1,7 +1,7 @@
-// if (process.env.NODE_ENV !== "production") {
-//   // Configuring .env variables if not the production
-//   require("dotenv").config();
-// }
+if (process.env.NODE_ENV !== "production") {
+  // Configuring .env variables if not the production
+  require("dotenv").config();
+}
 
 const express = require("express");
 const app = express();
