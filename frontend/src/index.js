@@ -17,6 +17,7 @@ import Home from "./pages/Home";
 import PatientHome from "./components/Patient/PatientHome";
 import PatientSearch from "./components/Patient/PatientSearch";
 import PatientBooking from "./pages/PatientBooking";
+import Logout from "./pages/Logout";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/logout",
+        element: <Logout />,
       },
 
       {
