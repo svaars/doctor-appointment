@@ -1,6 +1,11 @@
 #signup-option {
     display: flex;
-    flex-direction: column;
+
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+
+    }
+
     width: 100%;
     justify-content: center;
     gap: 32px;
