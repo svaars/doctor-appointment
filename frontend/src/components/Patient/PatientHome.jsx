@@ -3,7 +3,6 @@ import SearchBar from "./SearchBar";
 
 import "../Style/PatientHome.scss";
 import { Link } from "react-router-dom";
-import DoctorCard from "./DoctorCard";
 import FilterBox from "./FilterBox";
 
 export default function PatientHome() {
@@ -53,7 +52,7 @@ const UpcomingAppointments = () => {
   return (
     <section id="upcoming-appointments">
       <h3>Upcoming appointments</h3>
-      <DoctorCard />
+      <div id="appointments-list"></div>
     </section>
   );
 };
