@@ -1,0 +1,24 @@
+#signup-option {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 32px;
+
+    .signup-card {
+        text-decoration: none;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px;
+        background-color: #E1E1E1;
+        border-radius: 42px;
+        transition: background-color 300ms;
+
+        &:hover {
+            background-color: #d4d4d4;
+
+        }
+    }
+}
