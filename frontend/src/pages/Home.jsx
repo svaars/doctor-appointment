@@ -29,11 +29,11 @@ export default function Home() {
               schedule your appointment with just a few clicks.
             </p>
             <div className="cta">
-              <Link className="primary" to={"#signup"}>
+              <Link className="primary" to={"/signup"}>
                 Sign up now
               </Link>
-              <Link className="secondary" to={"#features"}>
-                Learn more
+              <Link className="secondary" to={"/login"}>
+                Login
               </Link>
             </div>
           </div>
