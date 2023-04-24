@@ -22,15 +22,30 @@ router.get("/appointments", verifyUser, async (req, res) => {
       };
     }
     const { from, to } = req.query;
-    const appointments = await Session.find({
+    const query = {
       "appointments.user": req.user._id,
+    };
+    if (from) {
+      query.date = {
+        $gte: new dayjs(from).toDate(),
+      };
+    }
+
+    if (to) {
+      query.date = { ...query.date, $lte: new dayjs(to).toDate() };
+    }
+    let sessions = await Session.find(query).populate(["doctor"]);
+    sessions = sessions.map((session) => {
+      session = session.toObject();
+      const userAppointments = session.appointments.find((ap) =>
+        ap.user.equals(req.user._id)
+      );
+      delete session.appointments;
+      session.appointments = userAppointments;
+
+      return session;
     });
-
-    console.log(appointments);
-    // if(from || to){
-    // }
-
-    res.status(200).send(appointments);
+    res.status(200).send(sessions);
   } catch (err) {
     console.log(err);
     RespondError(res, err.type, { error: err });
