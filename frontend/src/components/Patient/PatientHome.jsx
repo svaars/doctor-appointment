@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 
 import "../Style/PatientHome.scss";
 import { Link } from "react-router-dom";
 import FilterBox from "./FilterBox";
+import { GetAppointments } from "../../services/patient";
+import AppointmentCard from "./AppointmentCard";
 
 export default function PatientHome() {
   const FAST_SEARCH_OPTIONS = [
@@ -48,11 +50,25 @@ const FastSearchBoxCard = ({ color, label }) => {
 };
 
 const UpcomingAppointments = () => {
-  useEffect(() => {});
+  const [upcomingAppointments, setUpcomingAppointments] = useState(null);
+  useEffect(() => {
+    GetAppointments(new Date().toDateString()).then((res) => {
+      console.log(res);
+      setUpcomingAppointments(res.data);
+    });
+  }, []);
   return (
     <section id="upcoming-appointments">
       <h3>Upcoming appointments</h3>
-      <div id="appointments-list"></div>
+      <div id="appointments-list">
+        {upcomingAppointments && upcomingAppointments.length > 0 ? (
+          upcomingAppointments.map((app) => {
+            return <AppointmentCard session={app} />;
+          })
+        ) : (
+          <>No upcoming appointments</>
+        )}
+      </div>
     </section>
   );
 };
