@@ -27,9 +27,11 @@ export default function Appointments() {
         <h3>
           Today, you have{" "}
           {sessions &&
-            sessions
-              .map((s) => s.appointments.length)
-              .reduce((a, b) => a + b)}{" "}
+            (sessions.length > 0
+              ? sessions
+                  .map((s) => s.appointments.length)
+                  .reduce((a, b) => a + b)
+              : 0)}{" "}
           Bookings across {sessions && sessions.length} different sessions
         </h3>
       </Card>
