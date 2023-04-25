@@ -75,14 +75,14 @@ export default function FilterBox({
           <Select placeholder="Location" disabled></Select>
         )}
       </div>
-      <div id="filter-tools">
+      {/* <div id="filter-tools">
         <DatePicker
           value={selectedDate}
           onChange={(date) => {
             setSelectedDate(date);
           }}
         />
-      </div>
+      </div> */}
       <Button type="primary" block id="search-btn" onClick={handleSearch}>
         Search
       </Button>

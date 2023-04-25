@@ -1,10 +1,11 @@
 import { Button } from "antd";
-import "../Style/DoctorCard.scss";
 import React from "react";
 import { EnvironmentFilled } from "@ant-design/icons";
 
 import ProfileImage from "../Common/ProfileImage";
 import { useNavigate } from "react-router-dom";
+
+import "../Style/DoctorCard.scss";
 
 export default function DoctorCard({ doctor, hideBooking = false }) {
   const navigator = useNavigate();
@@ -28,7 +29,7 @@ export default function DoctorCard({ doctor, hideBooking = false }) {
         <div className="doctor-details">
           <div className="clinic-address">
             <span className="icon">
-              <EnvironmentFilled />
+              <EnvironmentFilled color="#E14D2A" />
             </span>
             <span>
               {doctor.doctorData.clinic.clinicName},{" "}

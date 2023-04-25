@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 8px;
+  padding: 16px;
   background-color: white;
   border-radius: 4px;
-  gap: 4px;
+  gap: 8px;
 
   .header {
     display: flex;
@@ -14,8 +14,18 @@
 
     .text {
       .doctor-speciality {
-        opacity: 0.8;
+        opacity: 0.75;
       }
+    }
+  }
+
+  .clinic-address {
+    display: flex;
+    gap: 8px;
+    opacity: .75;
+
+    .icon {
+      color: #E14D2A;
     }
   }
 

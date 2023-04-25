@@ -27,6 +27,7 @@ export default function PatientSearch() {
         initDate={queries.get("date")}
       />
       <div className="search-list">
+        <h3>Results</h3>
         {results === null ? (
           <Spin spinning />
         ) : results.length == 0 ? (

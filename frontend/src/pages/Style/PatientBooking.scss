@@ -1,8 +1,10 @@
 #patient-booking {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    margin: 10px;
+    gap: 8px;
+    padding: 10px;
+    max-width: 600px;
+    margin: auto;
 
     .session-selector {
         display: flex;
@@ -21,6 +23,12 @@
             &.active {
                 background-color: #0081C9;
                 color: white;
+            }
+
+            &.disabled {
+                opacity: 0.4;
+                border: 1px solid #E14D2A;
+
             }
         }
     }

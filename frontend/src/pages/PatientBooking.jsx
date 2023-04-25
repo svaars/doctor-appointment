@@ -59,6 +59,10 @@ export default function PatientBooking() {
         style={{ width: "100%" }}
         value={date}
         onChange={(d) => setDate(d)}
+        disabledDate={(current) => {
+          // Can not select days before today
+          return current && current < dayjs().endOf("day").subtract(1, "day");
+        }}
       />
       <Card>
         <SessionSelector
@@ -101,15 +105,35 @@ const SessionSelector = ({ sessions, onSelectHandler }) => {
       {sessions &&
         sessions.length > 0 &&
         sessions.map((ses, i) => {
+          const toTime = new dayjs(
+            new dayjs(ses.toTime).format("hh:mm:ss"),
+            "hh:mm:ss"
+          );
+          console.log(
+            new dayjs(ses.date)
+              .hour(toTime.hour())
+              .minute(toTime.minute())
+              .second(toTime.second()) < new dayjs()
+          );
+          const disabled =
+            new dayjs(ses.date)
+              .hour(toTime.hour())
+              .minute(toTime.minute())
+              .second(toTime.second()) < new dayjs() ||
+            ses.appointments.length == ses.maxPatients;
           return (
             <div
               key={i}
               className={
-                "session-time-button" + (selected === ses._id ? " active" : "")
+                "session-time-button" +
+                ((selected === ses._id ? " active" : "") +
+                  (disabled ? " disabled" : ""))
               }
               onClick={() => {
-                setSelected(ses._id);
-                onSelectHandler(ses);
+                if (!disabled) {
+                  setSelected(ses._id);
+                  onSelectHandler(ses);
+                }
               }}
             >
               {new dayjs(ses.fromTime).format("h:mm A")} -{" "}
