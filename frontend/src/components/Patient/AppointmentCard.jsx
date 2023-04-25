@@ -39,7 +39,12 @@ export default function AppointmentCard({ session }) {
               {new dayjs(session.toTime).format("hh:mm A")}
             </div>
           </div>
-          <div className="date">{new dayjs(session.date).fromNow()}</div>
+          <div className="date">
+            {new dayjs(session.date)
+              .hour(new dayjs(session.fromTime).hour())
+              .minute(new dayjs(session.fromTime).minute())
+              .format("DD/MM/YYYY")}
+          </div>
           <div className="ticket-no">
             <ContactsOutlined /> #
             {session && session.appointments && session.appointments.tokenNo}

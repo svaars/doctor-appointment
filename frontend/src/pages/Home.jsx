@@ -2,7 +2,7 @@ import { Button } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import AppImage from "../images/hero-app-image.png";
+import AppImage from "../images/hero-app-image_2.png";
 import HomeNavbar from "../components/Common/HomeNavbar";
 
 import "./Style/Home.scss";
