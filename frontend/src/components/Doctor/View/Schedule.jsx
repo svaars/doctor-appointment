@@ -101,12 +101,6 @@ export default function Schedule() {
           onCancel={() => {
             setAddingSession(false);
           }}
-          session={{
-            name: "Old A",
-            from: new Date().getTime(),
-            to: new Date().getTime(),
-            maxAllowed: 25,
-          }}
           date={selectedDate}
         />
       )}
