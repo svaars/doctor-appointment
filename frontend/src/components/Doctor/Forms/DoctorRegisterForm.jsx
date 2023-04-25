@@ -9,6 +9,10 @@ import { server_uri } from "../../../utils/constants/config";
 
 import "../../Style/DoctorRegisterForm.scss";
 
+const generateSelect = (value, label) => {
+  return { label, value: value || label.toLoweCase() };
+};
+
 export default function DoctorRegisterForm() {
   const [form] = useForm();
   const { setToken } = useContext(AuthContext);
@@ -184,6 +188,12 @@ function GeneralDetailsForm() {
           {
             required: true,
             message: "Please input your password!",
+          },
+          {
+            pattern:
+              /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+            message:
+              "Password should be minimum eight characters, at least one letter, one number and one special character",
           },
         ]}
         hasFeedback
@@ -489,7 +499,14 @@ function ClinicDetailsForm() {
           },
         ]}
       >
-        <Input />
+        <Select
+          options={[
+            generateSelect("Manipal"),
+            generateSelect("Udupi"),
+            generateSelect("Mangalore"),
+          ]}
+          searchValue=""
+        />
       </Form.Item>
 
       <Form.Item
