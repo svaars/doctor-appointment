@@ -7,7 +7,6 @@ import { useForm } from "antd/es/form/Form";
 import { useNavigate } from "react-router-dom";
 import { server_uri } from "../../../utils/constants/config";
 
-
 export default function PatientRegisterForm() {
   const [form] = useForm();
   const { setToken } = useContext(AuthContext);
@@ -49,7 +48,7 @@ export default function PatientRegisterForm() {
       });
   };
   return (
-    <div id="patient-register-form-wrapper">
+    <div id="patient-register-form-wrapper" className="form-wrapper">
       <div className="form">
         {success && (
           <Alert
@@ -111,25 +110,11 @@ export default function PatientRegisterForm() {
               className="form-buttons"
               style={{ display: "flex", justifyContent: "center", gap: "8px" }}
             >
-              <Form.Item
-                wrapperCol={{
-                  offset: 8,
-                  span: 16,
-                }}
-              >
-                <Button type="primary" htmlType="submit" loading={submitting}>
-                  Submit
-                </Button>
-              </Form.Item>
+              <Button type="primary" htmlType="submit" loading={submitting}>
+                Submit
+              </Button>
 
-              <Form.Item
-                wrapperCol={{
-                  offset: 8,
-                  span: 16,
-                }}
-              >
-                <Button htmlType="reset">Reset</Button>
-              </Form.Item>
+              <Button htmlType="reset">Reset</Button>
             </div>
           </Form>
         )}
@@ -271,5 +256,3 @@ function GeneralDetailsForm() {
     </>
   );
 }
-
-

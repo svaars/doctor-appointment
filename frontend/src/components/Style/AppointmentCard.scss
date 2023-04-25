@@ -1,0 +1,49 @@
+.appointment-card-wrapper {
+    margin-top: 14px;
+}
+
+.appointment-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+
+
+    .doctor {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+
+        .desc-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: flex-start;
+
+            .name {
+                font-weight: 600;
+            }
+
+            .specialization {
+                opacity: 0.8;
+            }
+
+        }
+
+
+    }
+
+    .time {
+        display: flex;
+
+        .time-text {
+            text-transform: lowercase;
+        }
+    }
+
+    .bottom {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+}

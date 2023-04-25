@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import "./App.css";
 import { AuthContext } from "./context/AuthContext";
+import { ConfigProvider } from "antd";
 
 // App function
 
@@ -14,7 +15,17 @@ function App() {
 
   return (
     <div id="App">
-      <Outlet />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#219f94",
+            colorInfo: "#219f94",
+            borderRadius: 4,
+          },
+        }}
+      >
+        <Outlet />
+      </ConfigProvider>
     </div>
   );
 }

@@ -1,0 +1,22 @@
+.form-wrapper {
+    min-width: 50vw;
+
+    .form {
+        form {
+            margin: auto;
+
+        }
+
+        .form-buttons {
+            padding-top: 24px;
+            display: flex;
+            justify-content: center;
+
+            @media screen and (max-width:500px) {
+                flex-direction: column;
+            }
+
+            gap: 8px;
+        }
+    }
+}
