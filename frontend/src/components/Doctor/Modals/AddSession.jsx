@@ -1,10 +1,18 @@
-import { Form, Input, TimePicker } from "antd";
+import { Form, Input, InputNumber, TimePicker } from "antd";
 import Modal from "antd/es/modal/Modal";
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import { createSession } from "../../../services/session";
 
-export default function AddSession({ onSessionCreated, editing = false, open, onCancel, session, date, ...rest }) {
+export default function AddSession({
+  onSessionCreated,
+  editing = false,
+  open,
+  onCancel,
+  session,
+  date,
+  ...rest
+}) {
   const [editingSession, setEditingSession] = useState(
     session || {
       name: "Session ?",
@@ -16,33 +24,47 @@ export default function AddSession({ onSessionCreated, editing = false, open, on
 
   const [submitting, setSubmitting] = useState(false);
 
-  const submitHandler =()=>{
-        setSubmitting(true);
+  const submitHandler = () => {
+    setSubmitting(true);
 
-        // for creating
-        if(!editing){
-          createSession({name:editingSession.name, date:date, fromTime: editingSession.from, toTime: editingSession.to, maxPatients: editingSession.maxAllowed}).then(session=>{
-            onSessionCreated(session);
-          }).finally(()=>{
-            setSubmitting(false)
-          });
-        }
-      
-  }
+    // for creating
+    if (!editing) {
+      createSession({
+        name: editingSession.name,
+        date: date,
+        fromTime: editingSession.from,
+        toTime: editingSession.to,
+        maxPatients: editingSession.maxAllowed,
+      })
+        .then((session) => {
+          onSessionCreated(session);
+        })
+        .finally(() => {
+          setSubmitting(false);
+        });
+    }
+  };
 
   return (
     <Modal
-      title={(session?"Edit the":"Create a") + " Session"}
+      title={(session ? "Edit the" : "Create a") + " Session"}
       open={open}
       onCancel={onCancel}
       okText={"Add"}
-      okButtonProps={{loading:submitting}}
+      okButtonProps={{ loading: submitting }}
       {...rest}
       destroyOnClose
       onOk={submitHandler}
     >
       {/* {new Date().toLocaleString('en-us',{month:"long", day:"numeric", year:"numeric"})} */}
-      <p>Session on {date.toLocaleString('en-us',{month:"long", day:"numeric", year:"numeric"})}</p>
+      <p>
+        Session on{" "}
+        {date.toLocaleString("en-us", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        })}
+      </p>
       <Form
         labelCol={{
           span: 6,
@@ -81,8 +103,14 @@ export default function AddSession({ onSessionCreated, editing = false, open, on
               setEditingSession((prev) => {
                 return {
                   ...prev,
-                  from: e[0].toDate().getTime(),
-                  to: e[1].toDate().getTime(),
+                  from:
+                    e && e.length > 0
+                      ? e[0].toDate().getTime()
+                      : new Date().getTime(),
+                  to:
+                    e && e.length > 0
+                      ? e[1].toDate().getTime()
+                      : new Date().getTime(),
                 };
               });
             }}
@@ -94,7 +122,17 @@ export default function AddSession({ onSessionCreated, editing = false, open, on
           name="maxPatients"
           rules={[{ required: true }, { type: "number" }]}
         >
-          <Input />
+          <InputNumber
+            value={editingSession.maxAllowed}
+            onChange={(e) =>
+              setEditingSession((prev) => {
+                return {
+                  ...prev,
+                  maxAllowed: Number.parseInt(e),
+                };
+              })
+            }
+          />
         </Form.Item>
       </Form>
     </Modal>

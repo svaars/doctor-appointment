@@ -61,11 +61,9 @@ export default function PatientNavbar({ username }) {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="#"></Link>
+              <Link to="/patient/app">Dashboard</Link>
             </li>
-            <li>
-              <Link to="#">Link 3</Link>
-            </li>
+
             <li>
               <Button
                 onClick={() => {
