@@ -7,6 +7,7 @@ import { useForm } from "antd/es/form/Form";
 import { useNavigate } from "react-router-dom";
 import { server_uri } from "../../../utils/constants/config";
 
+import "../../Style/DoctorRegisterForm.scss";
 
 export default function DoctorRegisterForm() {
   const [form] = useForm();
@@ -51,7 +52,7 @@ export default function DoctorRegisterForm() {
       });
   };
   return (
-    <div id="doctor-register-form-wrapper">
+    <div id="doctor-register-form-wrapper" className="form-wrapper">
       <div className="form">
         {success && (
           <Alert
@@ -112,29 +113,12 @@ export default function DoctorRegisterForm() {
               />
             )}
 
-            <div
-              className="form-buttons"
-              style={{ display: "flex", justifyContent: "center", gap: "8px" }}
-            >
-              <Form.Item
-                wrapperCol={{
-                  offset: 8,
-                  span: 16,
-                }}
-              >
-                <Button type="primary" htmlType="submit" loading={submitting}>
-                  Submit
-                </Button>
-              </Form.Item>
+            <div className="form-buttons">
+              <Button type="primary" htmlType="submit" loading={submitting}>
+                Submit
+              </Button>
 
-              <Form.Item
-                wrapperCol={{
-                  offset: 8,
-                  span: 16,
-                }}
-              >
-                <Button htmlType="reset">Reset</Button>
-              </Form.Item>
+              <Button htmlType="reset">Reset</Button>
             </div>
           </Form>
         )}
