@@ -348,6 +348,20 @@ function MedicalDetailsForm() {
             { value: "Gynecology", label: "Gynecology" },
             { value: "Dermatology", label: "Dermatology" },
             { value: "Cardiology", label: "Cardiology" },
+
+            { value: "Endocrinology", label: "Endocrinology" },
+            { value: "Gastroenterology", label: "Gastroenterology" },
+            { value: "Hematology", label: "Hematology" },
+            { value: "Immunology", label: "Immunology" },
+            { value: "Neurology", label: "Neurology" },
+            { value: "Oncology", label: "Oncology" },
+            { value: "Ophthalmology", label: "Ophthalmology" },
+            { value: "Orthopedics", label: "Orthopedics" },
+            { value: "Psychiatry", label: "Psychiatry" },
+            { value: "Pulmonology", label: "Pulmonology" },
+            { value: "Radiology", label: "Radiology" },
+            { value: "Rheumatology", label: "Rheumatology" },
+            { value: "Urology", label: "Urology" },
           ]}
         />
       </Form.Item>
