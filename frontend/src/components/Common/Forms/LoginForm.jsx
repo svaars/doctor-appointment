@@ -129,7 +129,7 @@ const LoginForm = () => {
           <Button type="primary" htmlType="submit" disabled={isSubmitting}>
             Login
           </Button>
-          <Button>Signup</Button>
+          <Button href="/signup">Signup</Button>
         </div>
         {/* <div className="form-field">
           <a href="#" className="forgot-password-link">

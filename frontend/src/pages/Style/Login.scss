@@ -1,0 +1,11 @@
+#login {
+    .home-navbar {
+        padding-left: 64px;
+        padding-right: 64px;
+
+        @media screen and (max-width:500px) {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+    }
+}

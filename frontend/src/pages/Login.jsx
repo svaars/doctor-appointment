@@ -6,6 +6,9 @@ import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { server_uri } from "../utils/constants/config";
 import { Spin } from "antd";
+import HomeNavbar from "../components/Common/HomeNavbar";
+
+import "./Style/Login.scss";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -42,6 +45,7 @@ export default function Login() {
   } else if (!loggedIn) {
     return (
       <div id="login">
+        <HomeNavbar />
         <LoginForm />
       </div>
     );
