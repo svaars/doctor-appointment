@@ -32,8 +32,8 @@ function getItem(label, key, icon, children) {
 const items = [
   getItem("Appointments", "appointments", <HomeOutlined />),
   getItem("Schedule", "schedule", <ScheduleOutlined />),
-  getItem("Reports", "reports", <FileOutlined />),
-  getItem("Clinical notes", "clinical-notes", <UserOutlined />),
+  // getItem("Reports", "reports", <FileOutlined />),
+  // getItem("Clinical notes", "clinical-notes", <UserOutlined />),
   getItem("Logout", "logout", <LogoutOutlined />),
 ];
 

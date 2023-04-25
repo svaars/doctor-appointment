@@ -11,7 +11,7 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 
-import "../../Style/Schedule.css";
+import "../../Style/Schedule.scss";
 
 function SessionComponent({ session }) {
   return (
@@ -43,10 +43,10 @@ function SessionComponent({ session }) {
           <div className="number">{session.appointments.length || 0}</div>
         </div>
       </div>
-      <div className="buttons">
+      {/* <div className="buttons">
         <Button>Edit</Button>
         <Button danger>Cancel</Button>
-      </div>
+      </div> */}
     </div>
   );
 }

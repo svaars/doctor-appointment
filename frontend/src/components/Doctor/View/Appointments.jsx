@@ -35,9 +35,9 @@ export default function Appointments() {
           Bookings across {sessions && sessions.length} different sessions
         </h3>
       </Card>
-      <div className="search">
+      {/* <div className="search">
         <Search />
-      </div>
+      </div> */}
 
       <div className="sessions-list">
         {/* Session Card */}
