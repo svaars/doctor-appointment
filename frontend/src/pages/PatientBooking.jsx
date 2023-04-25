@@ -58,7 +58,7 @@ export default function PatientBooking() {
         size="large"
         style={{ width: "100%" }}
         value={date}
-        onChange={(d) => setDate(d)}
+        onChange={(d) => setDate(d || new dayjs())}
         disabledDate={(current) => {
           // Can not select days before today
           return current && current < dayjs().endOf("day").subtract(1, "day");
@@ -109,12 +109,7 @@ const SessionSelector = ({ sessions, onSelectHandler }) => {
             new dayjs(ses.toTime).format("hh:mm:ss"),
             "hh:mm:ss"
           );
-          console.log(
-            new dayjs(ses.date)
-              .hour(toTime.hour())
-              .minute(toTime.minute())
-              .second(toTime.second()) < new dayjs()
-          );
+
           const disabled =
             new dayjs(ses.date)
               .hour(toTime.hour())

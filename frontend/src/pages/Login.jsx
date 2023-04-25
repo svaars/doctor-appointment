@@ -35,7 +35,7 @@ export default function Login() {
   }, []);
 
   if (loading) {
-    return <Spin spinning />;
+    return <Spin spinning className="loading-spin" />;
   } else if (loggedIn) {
     return (
       <div className="reroute-message">
