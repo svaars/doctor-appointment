@@ -91,7 +91,8 @@ router.post("/:id/reports", verifyUser, async (req, res) => {
       content: req.body.content,
     });
     const result = await reports.save();
-    res.status(200).send(result);
+    const resReport = await Report.findOne(result._id).populate("by");
+    res.status(200).send(resReport);
   } catch (err) {
     console.log(err);
     RespondError(res, err.type, { error: err });
