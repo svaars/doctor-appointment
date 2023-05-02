@@ -63,8 +63,13 @@ function SessionUserCard({ appointment }) {
         </div>
       </div>
       <div className="action-buttons">
-        <Button type="primary">Write report</Button>
-        <Button>View history</Button>
+        <Button
+          type="primary"
+          href={"/doctor/app/report/" + appointment.user._id}
+        >
+          Write report
+        </Button>
+        {/* <Button>View history</Button> */}
       </div>
     </div>
   );

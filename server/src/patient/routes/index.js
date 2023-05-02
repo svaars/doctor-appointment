@@ -6,6 +6,8 @@ const router = express.Router();
 
 const dayjs = require("dayjs");
 const Session = require("../../session/models/Session");
+const User = require("../../user/models/User");
+const Report = require("../model/Report");
 
 /*
     *GET ALL APPOINTMENTS (BEFORE OR AFTER A DATE IF SPECIFIED)*
@@ -46,6 +48,71 @@ router.get("/appointments", verifyUser, async (req, res) => {
       return session;
     });
     res.status(200).send(sessions);
+  } catch (err) {
+    console.log(err);
+    RespondError(res, err.type, { error: err });
+  }
+});
+/*
+    *GET ALL APPOINTMENTS (BEFORE OR AFTER A DATE IF SPECIFIED)*
+    ENDPOINT : /patients/appointments
+    QUERY: {from, to}
+    RETURN: { success: true, session:{object}}
+*/
+router.get("/:id", verifyUser, async (req, res) => {
+  try {
+    let patient = await User.findOne({
+      _id: req.params.id,
+      userType: USERS.patient,
+    });
+
+    res.status(200).send(patient);
+  } catch (err) {
+    console.log(err);
+    RespondError(res, err.type, { error: err });
+  }
+});
+/*
+    *CREATE A REPORT FOR A PATIENT*
+    ENDPOINT : /patients/:id/reports
+    BODY: {content} 
+    RETURN: [{object}]
+*/
+router.post("/:id/reports", verifyUser, async (req, res) => {
+  try {
+    if (req.user.userType !== USERS.doctor) {
+      RespondError(res, CommonErrors.FORBIDDEN, {
+        message: "Only doctors can create report",
+      });
+    }
+    let reports = new Report({
+      by: req.user._id,
+      for: req.params.id,
+      content: req.body.content,
+    });
+    const result = await reports.save();
+    res.status(200).send(result);
+  } catch (err) {
+    console.log(err);
+    RespondError(res, err.type, { error: err });
+  }
+});
+/*
+    *GET ALL REPORTS OF A PATIENT*
+    ENDPOINT : /patients/:id/reports
+    QUERY: 
+    RETURN: [{object}]
+*/
+router.get("/:id/reports", verifyUser, async (req, res) => {
+  try {
+    let reports = await Report.find({
+      // by: req.params.id,
+      for: req.params.id,
+    })
+      .populate("by")
+      .sort({ createdAt: -1 });
+
+    res.status(200).send(reports);
   } catch (err) {
     console.log(err);
     RespondError(res, err.type, { error: err });

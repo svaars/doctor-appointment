@@ -18,6 +18,7 @@ import PatientHome from "./components/Patient/PatientHome";
 import PatientSearch from "./components/Patient/PatientSearch";
 import PatientBooking from "./pages/PatientBooking";
 import Logout from "./pages/Logout";
+import Report from "./pages/Report";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: "/doctor/app",
         element: <DoctorDashboard />,
+      },
+      {
+        path: "/doctor/app/report/:id",
+        element: <Report />,
       },
     ],
   },
