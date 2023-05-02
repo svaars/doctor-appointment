@@ -106,8 +106,8 @@ const SessionSelector = ({ sessions, onSelectHandler }) => {
         sessions.length > 0 &&
         sessions.map((ses, i) => {
           const toTime = new dayjs(
-            new dayjs(ses.toTime).format("hh:mm:ss"),
-            "hh:mm:ss"
+            new dayjs(ses.toTime).format("hh:mm:ss A"),
+            "hh:mm:ss A"
           );
 
           const disabled =
@@ -116,6 +116,7 @@ const SessionSelector = ({ sessions, onSelectHandler }) => {
               .minute(toTime.minute())
               .second(toTime.second()) < new dayjs() ||
             ses.appointments.length == ses.maxPatients;
+
           return (
             <div
               key={i}
